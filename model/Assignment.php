@@ -40,7 +40,7 @@ class Assignment {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getAllIndividual($person_name) {
+    public function getIndividual($person_name) {
         $query = "SELECT AssignmentCategories.category_title, Assistant.name AS assistant_name, Status.status_descriptor, PerformanceLevels.levels, WeeklyTracker.hall, Weeks.weekly_date
         FROM WeeklyTracker 
         JOIN People AS Person ON WeeklyTracker.person_id = Person.person_id JOIN AssignmentCategories ON WeeklyTracker.category_id = AssignmentCategories.category_id JOIN People AS Assistant ON WeeklyTracker.assistant_id = Assistant.person_id JOIN Status ON WeeklyTracker.status_id = Status.status_id JOIN PerformanceLevels ON WeeklyTracker.performace_id = PerformanceLevels.performace_id JOIN Weeks ON WeeklyTracker.week_id = Weeks.week_id 
@@ -48,6 +48,18 @@ class Assignment {
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute([$person_name]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAssignment($person_name, $date) {
+        $query = "SELECT Person.name AS person_name, AssignmentCategories.category_title, Assistant.name AS assistant_name, Status.status_descriptor, PerformanceLevels.levels, WeeklyTracker.hall, Weeks.weekly_date
+        FROM WeeklyTracker 
+        JOIN People AS Person ON WeeklyTracker.person_id = Person.person_id JOIN AssignmentCategories ON WeeklyTracker.category_id = AssignmentCategories.category_id JOIN People AS Assistant ON WeeklyTracker.assistant_id = Assistant.person_id JOIN Status ON WeeklyTracker.status_id = Status.status_id JOIN PerformanceLevels ON WeeklyTracker.performace_id = PerformanceLevels.performace_id JOIN Weeks ON WeeklyTracker.week_id = Weeks.week_id 
+        WHERE Person.name = :person_name AND Weeks.weekly_date = :date";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(['person_name' => $person_name, 'date' => $date]);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
