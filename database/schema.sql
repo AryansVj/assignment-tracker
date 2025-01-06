@@ -1,3 +1,4 @@
+
 CREATE DATABASE AssignmentTracker;
 USE AssignmentTracker;
 
@@ -60,11 +61,11 @@ CREATE TABLE WeeklyTracker (
     performace_id INT UNSIGNED,
     hall INT,
 
-    PRIMARY KEY (assistant_id),
+    PRIMARY KEY (assignment_id),
 
     CONSTRAINT FOREIGN KEY(person_id) REFERENCES People(person_id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY(category_id) REFERENCES AssignmentCategories(category_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT FOREIGN KEY(assignment_id) REFERENCES People(person_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT FOREIGN KEY(assistant_id) REFERENCES People(person_id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY(week_id) REFERENCES Weeks(week_id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY(status_id) REFERENCES Status(status_id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY(performace_id) REFERENCES PerformanceLevels(performace_id) ON DELETE CASCADE ON UPDATE CASCADE
