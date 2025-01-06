@@ -8,12 +8,11 @@ class Database {
     private $username = 'root';
     private $password = 'root';
 
-    private $pdo_query = "mysql:host=$this->host;port=$this->port;dbname=$this->dbname";;
-
     public $pdo = null;
-
+    
     public function createDB() {
-        $this->pdo = new PDO($this->pdo_query, $this->username, $this->password);
+        $dsn = 'mysql:host=' . $this->host .';port=' . $this->port .';dbname=' . $this->db_name;
+        $this->pdo = new PDO($dsn, $this->username, $this->password);
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 };
