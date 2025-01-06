@@ -63,4 +63,13 @@ class Assignment {
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function addAssignment($person_id, $category_id, $assistant_id, $week_id, $status_id, $performace_id, $hall) {
+        $query = "INSERT INTO WeeklyTracker (person_id, category_id, assistant_id, week_id, status_id, performace_id, hall) VALUES (:person_id, :category_id, :assistant_id, :week_id, :status_id, :performace_id, :hall)";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(['person_id'=> $person_id, 'category_id' => $category_id, 'assistant_id' => $assistant_id, 'week_id' => $week_id, 'status_id' => $status_id, 'performace_id' => $performace_id, 'hall' => $hall]);
+        
+        return 0;
+    }
 };
