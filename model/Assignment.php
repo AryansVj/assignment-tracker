@@ -19,7 +19,7 @@ class Assignment {
             echo '<br>Error Message: ' . $e->getMessage();
         }
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function getWeek($date) {
@@ -37,7 +37,7 @@ class Assignment {
             echo '<br>Error Message: ' . $e->getMessage();
         }
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function getMonth($year, $month) {
@@ -55,7 +55,7 @@ class Assignment {
             echo '<br>Error Message: ' . $e->getMessage();
         }
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function getIndividual($person_name) {
@@ -73,7 +73,7 @@ class Assignment {
             echo '<br>Error Message: ' . $e->getMessage();
         }
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function getAssignment($person_name, $date) {
@@ -91,7 +91,7 @@ class Assignment {
             echo '<br>Error Message: ' . $e->getMessage();
         }
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 
     public function addAssignment($person_id, $category_id, $assistant_id, $week_id, $status_id, $performace_id, $hall) {
