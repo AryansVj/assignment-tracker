@@ -10,7 +10,7 @@ class Database {
 
     public $pdo = null;
     
-    public function createDB() {
+    public function connectDB() {
         $dsn = 'mysql:host=' . $this->host .';port=' . $this->port .';dbname=' . $this->db_name;
         $this->pdo = new PDO($dsn, $this->username, $this->password);
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
