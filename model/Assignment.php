@@ -3,9 +3,9 @@ class Assignment {
     private $conn;
     private $table;
 
-    public function __construct($db_conn, $table_name) {
+    public function __construct($db_conn) {
         $this->conn = $db_conn;
-        $this->table = $table_name;
+        $this->table = "WeeklyTracker";
     }
 
     public function getAll() {
@@ -104,6 +104,7 @@ class Assignment {
         catch (PDOException $e) {
             echo 'Exception occured. Error code: ' . $e->getCode(); 
             echo '<br>Error Message: ' . $e->getMessage();
+            return -1;
         }
         
         return 0;
