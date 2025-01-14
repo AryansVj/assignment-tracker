@@ -15,6 +15,9 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
         $weeks = new Weeks($db->pdo);
 
         $person_id = $people->getPersonID($_POST['Name']);
+        if ($person_id == -1) {
+            $_SESSION['error'] = 'Assignment addition failed. Person Name error!';
+        }
         if ($_POST['assistant'] === "None") {
             $assistant_id = 5;
         } else {
@@ -27,11 +30,12 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
             
             $weeks->updateCount($_SESSION['week'], $_SESSION['weekly_count']);
 
-        } else {
-            $_SESSION['error'] = 'Error adding the assignment!';
+        } else if ( !isset($_SESSION['error']) ) {
+            $_SESSION['error'] = 'Assignment addition failed!';
         }
 
         $weekly_assignments = $assignments->getWeek($_SESSION['date']);
+        $_SESSION['weekly_assignments'] = $weekly_assignments;
     }
     header("Location: addAssignment.php");
     return;
@@ -46,6 +50,8 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
     <title>Document</title>
 </head>
 <body>
+    <h1>Add a new assignment</h1>
+    <h3>Week: <?= htmlentities($_SESSION['date']); ?></h3>
     <form method="post">
         <p>
             <label for="Name">Enter the Name (No spelling mistakes)</label>
@@ -106,7 +112,7 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
             unset($_SESSION['success']);
         }
 
-        print_r($_SESSION);
+        print_r($_SESSION['weekly_assignments']);
         ?>
     </pre>
 </body>
