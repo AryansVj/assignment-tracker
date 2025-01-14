@@ -111,4 +111,20 @@ class Assignment {
         
         return 0;
     }
+
+    public function updateAssignment($assignment_id, $person_id, $category_id, $assistant_id, $status_id, $performace_id, $hall) {
+        $query = "UPDATE WeeklyTracker SET person_id = :person_id, category_id = :category_id, assistant_id = :assistant_id, status_id = :status_id, performace_id = :performace_id, hall = :hall WHERE assignment_id = :assignment_id";
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['person_id'=> $person_id, 'category_id' => $category_id, 'assistant_id' => $assistant_id, 'status_id' => $status_id, 'performace_id' => $performace_id, 'hall' => $hall, 'assignment_id' => $assignment_id]);
+        }
+        catch (PDOException $e) {
+            echo 'Exception occured. Error code: ' . $e->getCode(); 
+            echo '<br>Error Message: ' . $e->getMessage();
+            return -1;
+        }
+        
+        return 0;
+    }
 };
