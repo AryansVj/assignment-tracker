@@ -9,8 +9,10 @@ if ( isset($_POST['WeeklyDate']) ) {
         
         $weeks = new Weeks($db->pdo);
         $week_id = $weeks->getWeekID($_POST['WeeklyDate']);
+        $weekly_count = $weeks->getCount($week_id);
         
         $_SESSION['week'] = $week_id;
+        $_SESSION['weekly_count'] = $weekly_count;
         $_SESSION['date'] = $_POST['WeeklyDate'];
         header("Location: addAssignment.php");
         return;

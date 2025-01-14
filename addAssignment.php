@@ -3,6 +3,7 @@ session_start();
 require_once "model/database.php";
 require_once "model/Assignment.php";
 require_once "model/PeopleManager.php";
+require_once "model/Weeks.php";
 if ( isset($_POST['Name']) && isset($_POST['category']) ) {
     if ( (strlen($_POST['Name']) > 0) && (strlen($_POST['category']) > 0) ) {
 
@@ -11,6 +12,7 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
 
         $assignments = new Assignment($db->pdo);
         $people = new People($db->pdo);
+        $weeks = new Weeks($db->pdo);
 
         $person_id = $people->getPersonID($_POST['Name']);
         if ($_POST['assistant'] === "None") {
@@ -21,11 +23,15 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
         
         if ( $assignments->addAssignment($person_id, $_POST['category'], $assistant_id, $_SESSION['week'], $_POST['status'] + 0, $_POST['level'] + 0, $_POST['hall']) == 0) {
             $_SESSION['success'] = 'Assignment for ' . $_POST['Name'] . ' was successfully added!';
+            $_SESSION['weekly_count'] = $_SESSION['weekly_count'] + 1;
+            
+            $weeks->updateCount($_SESSION['week'], $_SESSION['weekly_count']);
+
         } else {
             $_SESSION['error'] = 'Error adding the assignment!';
         }
 
-        $all = $assignments->getIndividual($_POST['Name']);
+        $weekly_assignments = $assignments->getWeek($_SESSION['date']);
     }
     header("Location: addAssignment.php");
     return;
@@ -99,6 +105,8 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
             echo '<p style="color:green">' . $_SESSION['success'] . '</p>';
             unset($_SESSION['success']);
         }
+
+        print_r($_SESSION);
         ?>
     </pre>
 </body>

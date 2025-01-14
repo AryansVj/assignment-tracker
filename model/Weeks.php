@@ -25,4 +25,36 @@ class Weeks {
         }
     }
 
+    public function updateCount($week_id, $count) {
+        $query = "UPDATE Weeks SET weekly_count = :count WHERE week_id = :week_id";
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['count' => $count, 'week_id' => $week_id]);
+        }
+        catch (PDOException $e) {
+            echo 'Exception occured. Error code: ' . $e->getCode(); 
+            echo '<br>Error Message: ' . $e->getMessage();
+        }
+    }
+
+    public function getCount($week_id) {
+        $query = "SELECT weekly_count FROM Weeks WHERE week_id = :week_id";
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['week_id' => $week_id]);
+        }
+        catch (PDOException $e) {
+            echo 'Exception occured. Error code: ' . $e->getCode(); 
+            echo '<br>Error Message: ' . $e->getMessage();
+        }
+
+        if ( $row = $stmt->fetch() ) {
+            return $row['weekly_count'] + 0;
+        } else {
+            return -1;
+        }
+    }
+
 }
