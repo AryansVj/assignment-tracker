@@ -8,6 +8,7 @@ if ( isset($_POST['WeeklyDate']) ) {
         $db->connectDB();
         
         $weeks = new Weeks($db->pdo);
+        $weeks->addWeek($_POST['WeeklyDate'], 0, NULL);
         $week_id = $weeks->getWeekID($_POST['WeeklyDate']);
         $weekly_count = $weeks->getCount($week_id);
         

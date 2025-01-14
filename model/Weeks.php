@@ -6,6 +6,19 @@ class Weeks {
         $this->conn = $db_conn;
     }
 
+    public function addWeek($weekly_date, $count, $notes) {
+        $query = "INSERT IGNORE INTO Weeks(weekly_date, weekly_count, special_notes) values (:weekly_date, :weekly_count, :special_notes)";
+        
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['weekly_date' => $weekly_date, 'weekly_count' => $count, 'special_notes' => $notes]);
+        }
+        catch (PDOException $e) {
+            echo 'Exception occured. Error code: ' . $e->getCode(); 
+            echo '<br>Error Message: ' . $e->getMessage();
+        }
+    }
+
     public function getWeekID($weekly_date) {
         $query = "SELECT week_id FROM Weeks WHERE weekly_date = :weekly_date";
         
