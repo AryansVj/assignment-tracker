@@ -1,0 +1,95 @@
+<?php
+session_start();
+require_once "model/database.php";
+require_once "model/Assignment.php";
+require_once "model/Weeks.php";
+
+$db = new Database();
+$db->connectDB();
+
+$assignments = new Assignment($db->pdo);
+$weeks = new Weeks($db->pdo);
+
+// Landing for delete request with error checking
+if (!isset($_GET['assignment_id'])) {
+    $_SESSION['error'] = 'Assignment ID not found!';
+    header("Location: Add.php");
+    return;
+} else {
+    $assignment = $assignments->getAssignment($_GET['assignment_id']);
+    if ($assignment == 0) {
+        $_SESSION['error'] = 'Assignment not found!';
+        header("Location: Add.php");
+        return;
+    } else {
+        $_SESSION['assignment_id'] = $_GET['assignment_id'];
+    }
+}
+
+// Deleting the assignment through a POST request
+if (isset($_POST['assignment_id'])) {
+    $res = $assignments->deleteAssignment($_POST['assignment_id']);
+    if ($res == 0) {
+        if (!isset($_SESSION['weekly_count'])) $_SESSION['weekly_count'] = $weeks->getCount($_SESSION['week']);
+        $weeks->updateCount($_SESSION['week'], $_SESSION['weekly_count'] - 1);
+        $_SESSION['success'] = 'Assignment successfully deleted!';
+        header("Location: Add.php");
+        return;
+    } else if ($res == -1) {
+        $_SESSION['error'] = 'Assignment delete failed! (ID: '. $_POST['assignment_id'] . ')';
+        header("Location: Delete.php?assignment_id=" . htmlentities($_POST['assignment_id']));
+        return;
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/stylesDelete.css">
+    <title>Delete Assignment</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Delete Assignment</h1>
+
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="message error">
+                <?= htmlentities($_SESSION['error']) ?>
+            </div>
+            <script>
+                // Automatically hide the error message after 5 seconds
+                setTimeout(() => {
+                    const errorMessage = document.getElementById('error-message');
+                    if (errorMessage) {
+                        errorMessage.style.transition = "opacity 1s";
+                        errorMessage.style.opacity = "0";
+                        setTimeout(() => errorMessage.remove(), 1000); // Remove from DOM after fade-out
+                    }
+                }, 5000);
+            </script>
+        <?php unset($_SESSION['error']); endif; ?>
+
+        <div class="assignment">
+            <div class="atitle"><?= htmlentities($assignment['person_name']) ?></div>
+            <div class="acategory"><?= htmlentities($assignment['category_title']) ?></div>
+            <p>Assistant: <?= htmlentities($assignment['assistant_name']) ?></p>
+            <p>Status: <?= htmlentities($assignment['status_descriptor']) ?></p>
+            <p>Performance: <?= htmlentities($assignment['levels']) ?></p>
+        </div>
+
+        <form method="post">
+            <p>Do you want to delete this assignment from <?= htmlentities($_SESSION['date']) ?>?</p>
+            <input type="hidden" name="assignment_id" value="<?= htmlentities($_GET['assignment_id']) ?>">
+            <input type="hidden" name="week_id" value="<?= htmlentities($_SESSION['week']) ?>">
+            <input type="submit" value="Delete">
+        </form>
+
+        <div class="back-link">
+            <a href="Add.php">&larr; Go Back</a>
+        </div>
+    </div>
+</body>
+</html>

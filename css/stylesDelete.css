@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+.container {
+    width: 90%;
+    max-width: 800px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: center;
+    color: #444;
+}
+.message {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+.message.error {
+    background-color: #ffe5e5;
+    color: #d8000c;
+}
+.assignment {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background: #f9f9f9;
+}
+.atitle {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.acategory {
+    font-style: italic;
+    color: #666;
+}
+form {
+    text-align: center;
+}
+form p {
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+input[type="submit"] {
+    background-color: #d9534f;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+}
+input[type="submit"]:hover {
+    background-color: #c9302c;
+}
+.back-link {
+    text-align: center;
+    margin-top: 20px;
+}
+.back-link a {
+    text-decoration: none;
+    color: #0275d8;
+    font-weight: bold;
+}
+.back-link a:hover {
+    color: #014c8c;
+}
