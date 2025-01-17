@@ -1,0 +1,85 @@
+/* General Body Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container for Form and Heading */
+.container {
+    width: 400px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Page Heading */
+h1 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #0056b3;
+    font-weight: bold;
+}
+
+/* Form Styling */
+form {
+    margin-top: 20px;
+}
+
+/* Form Labels */
+form label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    text-align: left;
+    color: #555;
+}
+
+/* Date Input Field */
+input[type="date"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+input[type="date"]:focus {
+    border-color: #0056b3;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.3);
+}
+
+/* Submit Button */
+input[type="submit"] {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #0056b3;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #004494;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 480px) {
+    .container {
+        width: 90%;
+    }
+}

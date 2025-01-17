@@ -10,15 +10,13 @@ if ( isset($_POST['WeeklyDate']) ) {
         $weeks = new Weeks($db->pdo);
         $weeks->addWeek($_POST['WeeklyDate'], 0, NULL);
         $week_id = $weeks->getWeekID($_POST['WeeklyDate']);
-        $weekly_count = $weeks->getCount($week_id);
         
         $_SESSION['week'] = $week_id;
-        $_SESSION['weekly_count'] = $weekly_count;
         $_SESSION['date'] = $_POST['WeeklyDate'];
-        header("Location: addAssignment.php");
+        header("Location: Add.php");
         return;
     } else {
-        header("Location: getWeek.php");
+        header("Location: SelectWeek.php");
         return;
     }
 }
@@ -31,13 +29,16 @@ session_destroy();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Date</title>
+    <link rel="stylesheet" href="css/stylesSelectWeek.css">
 </head>
 <body>
-    <h1>Set the date of the week for assignments</h1>
-    <form method="post">
-        <p><label for="week">Select the meeting date of the week</label></p>
-        <input type="date" id="week" name="WeeklyDate"><br>
-        <input type="submit">
-    </form>
+    <div class="container">
+        <h1>Set the date of the week for assignments</h1>
+        <form method="post">
+            <p><label for="week">Select the meeting date of the week</label></p>
+            <input type="date" id="week" name="WeeklyDate" required><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 </body>
 </html>
