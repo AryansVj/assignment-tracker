@@ -65,28 +65,26 @@ if ( !isset($_GET['assignment_id']) ) {
     <title>Edit Assignment</title>
 </head>
 <body>
+    <h1>Edit the Assignment</h1>
     <div class="container">
-        <h1>Update the Assignment</h1>
-        <h3>Assignment ID: <?= htmlentities($_SESSION['assignment_id']); ?></h3>
+        <div class="sub-data">
+            <p>Assignment ID: <?= htmlentities($_SESSION['assignment_id']); ?></p>
+            <p>Date: <?= htmlentities($pre_date); ?></p>
+        </div>
 
         <form method="post">
             <div class="form-group">
-                <label>Date:</label>
-                <p><?= htmlentities($pre_date); ?></p>
-            </div>
-
-            <div class="form-group">
-                <label for="Name">Enter the Name (No spelling mistakes)</label>
+                <label for="Name">Enter the Name</label>
                 <input type="text" id="Name" name="Name" value="<?= htmlentities($pre_name); ?>">
             </div>
 
             <div class="form-group">
-                <label for="category">Assignment (Currently: <?= htmlentities($pre_category); ?>)</label>
+                <label for="category">Assignment</label>
                 <select name="category" id="category">
-                    <option value="0">Select Category</option>
-                    <option value="1">Bible Reading</option>
-                    <option value="2">Talk</option>
-                    <option value="3">Start Conversation (1)</option>
+                    <option value="0" <?= $pre_category == "Select Category" ? "selected" : ""; ?>>Select Category</option>
+                    <option value="1" <?= $pre_category == "Bible Reading" ? "selected" : ""; ?>>Bible Reading</option>
+                    <option value="2" <?= $pre_category == "Talk" ? "selected" : ""; ?>>Talk</option>
+                    <option value="3" <?= $pre_category == "Start Conversation (1)" ? "selected" : ""; ?>>Start Conversation (1)</option>
                 </select>
             </div>
 
@@ -96,39 +94,41 @@ if ( !isset($_GET['assignment_id']) ) {
             </div>
 
             <div class="form-group">
-                <label>Hall (Currently: Hall <?= htmlentities($pre_hall); ?>)</label>
+                <label>Hall</label>
                 <div class="radio-group">
-                    <label><input type="radio" name="hall" id="hall1" value="1"> Hall 1</label>
-                    <label><input type="radio" name="hall" id="hall2" value="2"> Hall 2</label>
+                    <label><input type="radio" name="hall" id="hall1" value="1" <?= $pre_hall == 1 ? "checked" : ""; ?>> Hall 1</label>
+                    <label><input type="radio" name="hall" id="hall2" value="2" <?= $pre_hall == 2 ? "checked" : ""; ?>> Hall 2</label>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="status">Assignment Status (Currently: <?= htmlentities($pre_status); ?>)</label>
+                <label for="status">Assignment Status</label>
                 <select name="status" id="status">
-                    <option value="1" selected>Pending</option>
-                    <option value="2">Completed</option>
-                    <option value="3">Missed</option>
+                    <option value="1" <?= $pre_status == "Pending" ? "selected" : ""; ?>>Pending</option>
+                    <option value="2" <?= $pre_status == "Completed" ? "selected" : ""; ?>>Completed</option>
+                    <option value="3" <?= $pre_status == "Missed" ? "selected" : ""; ?>>Missed</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="level">Performance Rating (Currently: <?= htmlentities($pre_performance); ?>)</label>
+                <label for="level">Performance Rating</label>
                 <select name="level" id="level">
-                    <option value="1">Excellent</option>
-                    <option value="2">Good</option>
-                    <option value="3">Neutral</option>
-                    <option value="4">Poor</option>
-                    <option value="5">Very Poor</option>
-                    <option value="6">Voluntary</option>
-                    <option value="7" selected>Not-Rated</option>
+                    <option value="1" <?= $pre_performance == "Excellent" ? "selected" : ""; ?>>Excellent</option>
+                    <option value="2" <?= $pre_performance == "Good" ? "selected" : ""; ?>>Good</option>
+                    <option value="3" <?= $pre_performance == "Neutral" ? "selected" : ""; ?>>Neutral</option>
+                    <option value="4" <?= $pre_performance == "Poor" ? "selected" : ""; ?>>Poor</option>
+                    <option value="5" <?= $pre_performance == "Very Poor" ? "selected" : ""; ?>>Very Poor</option>
+                    <option value="6" <?= $pre_performance == "Voluntary" ? "selected" : ""; ?>>Voluntary</option>
+                    <option value="7" <?= $pre_performance == "Not-Rated" ? "selected" : ""; ?>>Not-Rated</option>
                 </select>
             </div>
 
-            <input type="submit" value="Update Assignment">
+            <div class="button-container">
+                <input type="submit" value="Update Assignment">
+                <a href="Add.php" class="cancel-btn">Cancel</a>
+            </div>
         </form>
 
-        <a href="Add.php" class="back-btn">Cancel</a>
 
         <?php if (isset($_SESSION['error'])): ?>
             <div class="message error"><?= htmlentities($_SESSION['error']); ?></div>

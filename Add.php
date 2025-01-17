@@ -51,7 +51,7 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
     <title>Add Assignment</title>
 </head>
 <body>
-    <h1>Add a New Assignment</h1>
+    <h1>Weekly Dashboard</h1>
     <h3>Week: <?= htmlentities($_SESSION['date']); ?></h3>
 
     <div class="container">
@@ -159,7 +159,7 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
                             echo 'Assistant: ' . htmlentities($assignment['assistant_name']) . '<br>';
                             echo 'Status: ' . htmlentities($assignment['status_descriptor']) . '<br>';
                             echo 'Performance: ' . htmlentities($assignment['levels']) . '<br>';
-                            echo '<a href="editAssignment.php?assignment_id=' . htmlentities($assignment['assignment_id']) . '"><button class="aedit">Edit</button></a> <a href="Delete.php?assignment_id='  . htmlentities($assignment['assignment_id']) . '"><button class="adelete">Delete</button></a>';
+                            echo '<a href="Edit.php?assignment_id=' . htmlentities($assignment['assignment_id']) . '"><button class="aedit">Edit</button></a> <a href="Delete.php?assignment_id='  . htmlentities($assignment['assignment_id']) . '"><button class="adelete">Delete</button></a>';
                             echo '</div>';
                         }
                     }
@@ -178,7 +178,7 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
                             echo 'Assistant: ' . htmlentities($assignment['assistant_name']) . '<br>';
                             echo 'Status: ' . htmlentities($assignment['status_descriptor']) . '<br>';
                             echo 'Performance: ' . htmlentities($assignment['levels']) . '<br>';
-                            echo '<a href="editAssignment.php?assignment_id=' . htmlentities($assignment['assignment_id']) . '"><button class="aedit">Edit</button></a> <a href="Delete.php?assignment_id=' . htmlentities($assignment['assignment_id']) . '"><button class="adelete">Delete</button></a>';
+                            echo '<a href="Edit.php?assignment_id=' . htmlentities($assignment['assignment_id']) . '"><button class="aedit">Edit</button></a> <a href="Delete.php?assignment_id=' . htmlentities($assignment['assignment_id']) . '"><button class="adelete">Delete</button></a>';
                             echo '</div>';
                         }
                     }
