@@ -127,4 +127,20 @@ class Assignment {
         
         return 0;
     }
+
+    public function deleteAssignment($assignment_id) {
+        $query = "DELETE FROM WeeklyTracker WHERE assignment_id = :assignment_id";
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['assignment_id' => $assignment_id]);
+        }
+        catch (PDOException $e) {
+            echo 'Exception occured. Error code: ' . $e->getCode(); 
+            echo '<br>Error Message: ' . $e->getMessage();
+            return -1;
+        }
+        
+        return 0;
+    }
 };
