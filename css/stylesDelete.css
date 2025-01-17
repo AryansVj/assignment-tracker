@@ -28,20 +28,54 @@ h1 {
     background-color: #ffe5e5;
     color: #d8000c;
 }
+
 .assignment {
+    display: block;
+    padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 20px;
+    border-radius: 8px;
+    margin: 10px 15% 10px 15%;
     background: #f9f9f9;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 70%;
+    display: inline-block;
 }
+
+.assignment .atitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.assignment p {
+    margin: 0;
+}
+
+.assignment .acategory {
+    display: inline-block;
+    padding: 5px 6px;
+    background-color: #3498db;
+    color: white;
+    font-size: 1em;
+    border-radius: 5px;
+    font-style: normal;
+    font-weight: normal;
+}
+
+.assignment .adate {
+    display: inline-block;
+    padding: 5px 6px;
+    font-size: 1em;
+    border: 1px solid rgba(145, 145, 145, 0.7);
+    border-radius: 5px;
+    font-style: normal;
+    font-weight: normal;
+}
+
 .atitle {
     font-weight: bold;
     font-size: 1.2em;
-}
-.acategory {
-    font-style: italic;
-    color: #666;
 }
 form {
     text-align: center;

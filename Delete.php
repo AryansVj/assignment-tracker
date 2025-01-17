@@ -73,9 +73,11 @@ if (isset($_POST['assignment_id'])) {
         <?php unset($_SESSION['error']); endif; ?>
 
         <div class="assignment">
-            <div class="atitle"><?= htmlentities($assignment['person_name']) ?></div>
-            <div class="acategory"><?= htmlentities($assignment['category_title']) ?></div>
+            <div class="atitle"><p><strong><?= htmlentities($assignment['person_name']) ?></strong></p>
+            <span class="acategory"><?= htmlentities($assignment['category_title']) ?></span>
+            <span class="adate"><?= htmlentities($assignment['weekly_date']) ?></span></div>
             <p>Assistant: <?= htmlentities($assignment['assistant_name']) ?></p>
+            <p>Hall: <?= htmlentities($assignment['hall']) ?></p>
             <p>Status: <?= htmlentities($assignment['status_descriptor']) ?></p>
             <p>Performance: <?= htmlentities($assignment['levels']) ?></p>
         </div>
