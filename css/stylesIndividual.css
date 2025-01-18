@@ -13,6 +13,21 @@ h1 {
     color: #444;
 }
 
+.person-detail {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.person-detail p {
+    margin: 0 0 5px;
+}
+
+p.name {
+    font-size: 1.2em;
+    font-weight: bold;
+} 
+
 form {
     margin-top: 2.5%;
     margin-bottom: 2.5%;

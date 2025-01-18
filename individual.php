@@ -16,15 +16,16 @@ $people = new People($db->pdo);
 $res = 0;
 
 if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
-    $person_name = $_GET['Name'];
-    $res = $assignments->getByIndividual($person_name);
+    $person_name = htmlentities($_GET['Name']);
+    $assignment_list = $assignments->getByIndividual($person_name);
 
-    if ($res == false) {
+    if ($assignment_list == false) {
         $_SESSION['error'] = "No assignments found for " . $person_name;
-    } else if ($res == -1) {
+    } else if ($assignment_list == -1) {
         $_SESSION['error'] = "Error fetching records";
     } else {
-        $_SESSION['assignments'] = $res;
+        $assignment_count_pp = $people->getAssignmentCount($person_name);
+        $person_info = $people->getPersonInfo($person_name);
     }
 }
 ?>
@@ -35,10 +36,7 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Record by Individual</title>
-    <link rel="stylesheet" href="css/stylesIndividual.css">
-    <style>
-
-    </style>
+    <link rel="stylesheet" href="css/stylesIndividual.css">\
 </head>
 <body>
     <h1>Search for an individual</h1>
@@ -53,14 +51,23 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
         <input type="submit" value="Submit">
     </form>
 
+    <?php if (isset($_GET['Name']) && isset($assignment_count_pp)): ?>
+    <div class="person-detail">
+        <div>
+            <p class="name"> <?= $person_name ?> </p>
+            <p><?= $person_info['role_title'] . ", " . $person_info['group_name'] . " Group" ?></p>
+        </div>
+        <p><?= "Total Assignment Count: " . $assignment_count_pp ?></p>
+    </div>
+    <?php endif; ?>
+
     <div class="separator"></div>
 
-    <?php if (isset($_SESSION['assignments']) && isset($_GET['Name'])): ?>
+    <?php if ( isset($_GET['Name']) ): ?>
         <div class="assignments-container">
-            <div class="person-name"><?= htmlentities($_GET['Name']); ?></div>
             <?php
                 $grouped_assignments = [];
-                foreach ($_SESSION['assignments'] as $assignment) {
+                foreach ($assignment_list as $assignment) {
                     $year = date('Y', strtotime($assignment['assignment_date']));
                     $grouped_assignments[$year][] = $assignment;
                 }
@@ -92,8 +99,8 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
                     </div>
             <?php endforeach; ?>
         </div>
-        <?php unset($_SESSION['assignments']); ?>
-    <?php elseif (isset($_SESSION['error'])): ?>
+    
+    <?php endif; if (isset($_SESSION['error'])): ?>
         <div class="error"><?= htmlentities($_SESSION['error']); ?></div>
         <?php unset($_SESSION['error']); ?>
     <?php endif; ?>
