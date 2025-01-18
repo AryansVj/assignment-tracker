@@ -10,20 +10,30 @@ $db->connectDB();
 $assignments = new Assignment($db->pdo);
 $weeks = new Weeks($db->pdo);
 
+$back_path = $_SESSION['source'] . ".php";
+
 // Landing for delete request with error checking
 if (!isset($_GET['assignment_id'])) {
     $_SESSION['error'] = 'Assignment ID not found!';
-    header("Location: Add.php");
+    header("Location:" . $back_path);
     return;
 } else {
     $assignment = $assignments->getAssignment($_GET['assignment_id']);
     if ($assignment == 0) {
         $_SESSION['error'] = 'Assignment not found!';
-        header("Location: Add.php");
+        header("Location:" . $back_path);
         return;
     } else {
         $_SESSION['assignment_id'] = $_GET['assignment_id'];
     }
+    
+    if ( !isset($_SESSION['week']) ) {
+        $_SESSION['week'] = $weeks->getWeekID($assignment['weekly_date']);
+    }
+}
+
+if ($_SESSION['source'] == 'individual') {
+    $back_path .= "?Name=" . $assignment['person_name'];
 }
 
 // Deleting the assignment through a POST request
@@ -33,7 +43,7 @@ if (isset($_POST['assignment_id'])) {
         if (!isset($_SESSION['weekly_count'])) $_SESSION['weekly_count'] = $weeks->getCount($_SESSION['week']);
         $weeks->updateCount($_SESSION['week'], $_SESSION['weekly_count'] - 1);
         $_SESSION['success'] = 'Assignment successfully deleted!';
-        header("Location: Add.php");
+        header("Location:" . $back_path);
         return;
     } else if ($res == -1) {
         $_SESSION['error'] = 'Assignment delete failed! (ID: '. $_POST['assignment_id'] . ')';
@@ -41,6 +51,7 @@ if (isset($_POST['assignment_id'])) {
         return;
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -83,14 +94,14 @@ if (isset($_POST['assignment_id'])) {
         </div>
 
         <form method="post">
-            <p>Do you want to delete this assignment from <?= htmlentities($_SESSION['date']) ?>?</p>
+            <p>Do you want to delete this assignment from <?= htmlentities($assignment['weekly_date']) ?>?</p>
             <input type="hidden" name="assignment_id" value="<?= htmlentities($_GET['assignment_id']) ?>">
             <input type="hidden" name="week_id" value="<?= htmlentities($_SESSION['week']) ?>">
             <input type="submit" value="Delete">
         </form>
 
         <div class="back-link">
-            <a href="Add.php">&larr; Go Back</a>
+            <a href= <?= $back_path ?>>&larr; Go Back</a>
         </div>
     </div>
 </body>

@@ -1,0 +1,153 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    color: #444;
+}
+
+form {
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    text-align: center;
+}
+
+form input[type="text"] {
+    padding: 8px;
+    width: 90%;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form input[type="submit"] {
+    padding: 8px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.separator {
+    margin-top: 20px;
+    width: 80%;
+    border-top: 2px solid #ccc;
+}
+
+.assignments-container {
+    width: 80%;
+    margin-top: 20px;
+}
+
+.person-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.year-group {
+    margin-bottom: 30px;
+}
+
+.year-heading {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.assignment-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.assignment-card .date-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #007BFF;
+    color: white;
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.assignment-card .date-box .month {
+    font-size: 0.9em;
+}
+
+.assignment-card .date-box .day {
+    font-size: 1.8em;
+}
+
+.assignment-card .details,
+.assignment-card .status {
+    flex-grow: 1;
+    margin-left: 40px;
+}
+
+.assignment-card .details {
+    text-align: left;
+    width: 40%;
+}
+
+.assignment-card .details .category {
+    color: #007BFF;
+    font-size: 1.1em;
+}
+
+.assignment-card .status {
+    text-align: left;
+    width: 20%;
+}
+
+.assignment-card .edit {
+    display: flex;
+    width: 20%;
+    justify-content: space-around;
+}
+
+.assignment-card .edit a button {
+    background-color: #007BFF;
+    color: #fff;
+    font-size: 1em;
+    padding: 10px 5px;
+    border: none;
+    border-radius: 8px;
+    width: 80px;
+}
+
+.assignment-card .edit a button:hover {
+    background-color: #008BFF;
+    cursor: pointer;
+}
+
+.error {
+    margin-top: 20px;
+}

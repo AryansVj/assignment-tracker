@@ -10,30 +10,7 @@ $db->connectDB();
 $assignments = new Assignment($db->pdo);
 $people = new People($db->pdo);
 
-if ( isset($_POST['Name']) && isset($_POST['category']) ) {
-    if ( (strlen($_POST['Name']) > 0) && (strlen($_POST['category']) > 0) ) {
-        $person_id = $people->getPersonID($_POST['Name']);
-        if ($person_id == -1) {
-            $_SESSION['error'] = 'Assignment addition failed. Person Name error!';
-        }
-        if ($_POST['assistant'] === "None") {
-            $assistant_id = 5;
-        } else {
-            $assistant_id = $people->getPersonID($_POST['assistant']);
-        }
-
-        if ( $assignments->updateAssignment($_SESSION['assignment_id'], $person_id, $_POST['category'], $assistant_id, $_POST['status'] + 0, $_POST['level'] + 0, $_POST['hall'] + 0) == 0) {
-            $_SESSION['success'] = 'Assignment was successfully updated! (ID: '. $_SESSION['assignment_id'] . ')';
-            
-        } else if ( !isset($_SESSION['error']) ) {
-            $_SESSION['error'] = 'Assignment update failed!';
-        }
-    }
-    // if ($_SESSION['source_page'] == "add") {
-        header("Location: Add.php");
-    // }
-    return;
-}
+$back_path = $_SESSION['source'] . ".php";
 
 if ( !isset($_GET['assignment_id']) ) {
     $_SESSION['error'] = 'Assignment ID not found!';
@@ -54,6 +31,36 @@ if ( !isset($_GET['assignment_id']) ) {
         $pre_date = $assignment['weekly_date'];
     }
 }
+
+if ($_SESSION['source'] == 'individual') {
+    $back_path .= "?Name=" . $assignment['person_name'];
+}
+
+if ( isset($_POST['Name']) && isset($_POST['category']) ) {
+    if ( (strlen($_POST['Name']) > 0) && (strlen($_POST['category']) > 0) ) {
+        $person_id = $people->getPersonID($_POST['Name']);
+        if ($person_id == -1) {
+            $_SESSION['error'] = 'Assignment addition failed. Person Name error!';
+        }
+        if ($_POST['assistant'] === "None") {
+            $assistant_id = 5;
+        } else {
+            $assistant_id = $people->getPersonID($_POST['assistant']);
+        }
+
+        if ( $assignments->updateAssignment($_SESSION['assignment_id'], $person_id, $_POST['category'], $assistant_id, $_POST['status'] + 0, $_POST['level'] + 0, $_POST['hall'] + 0) == 0) {
+            $_SESSION['success'] = 'Assignment was successfully updated! (ID: '. $_SESSION['assignment_id'] . ')';
+            
+        } else if ( !isset($_SESSION['error']) ) {
+            $_SESSION['error'] = 'Assignment update failed!';
+        }
+    }
+    // if ($_SESSION['source_page'] == "add") {
+        header("Location: " . $back_path);
+    // }
+    return;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -125,7 +132,7 @@ if ( !isset($_GET['assignment_id']) ) {
 
             <div class="button-container">
                 <input type="submit" value="Update Assignment">
-                <a href="Add.php" class="cancel-btn">Cancel</a>
+                <a href=<?= $back_path ?> class="cancel-btn">Cancel</a>
             </div>
         </form>
 
