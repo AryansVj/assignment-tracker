@@ -126,7 +126,7 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
                     <option value="4" <?= $pre_performance == "Poor" ? "selected" : ""; ?>>Poor</option>
                     <option value="5" <?= $pre_performance == "Very Poor" ? "selected" : ""; ?>>Very Poor</option>
                     <option value="6" <?= $pre_performance == "Voluntary" ? "selected" : ""; ?>>Voluntary</option>
-                    <option value="7" <?= $pre_performance == "Not-Rated" ? "selected" : ""; ?>>Not-Rated</option>
+                    <option value="7" <?= $pre_performance === "Not-rated" ? "selected" : ""; ?>>Not-rated</option>
                 </select>
             </div>
 
