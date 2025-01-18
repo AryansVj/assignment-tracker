@@ -36,7 +36,7 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Record by Individual</title>
-    <link rel="stylesheet" href="css/stylesIndividual.css">\
+    <link rel="stylesheet" href="css/stylesIndividual.css">
 </head>
 <body>
     <h1>Search for an individual</h1>
@@ -50,16 +50,47 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
         ><br>
         <input type="submit" value="Submit">
     </form>
-
-    <?php if (isset($_GET['Name']) && isset($assignment_count_pp)): ?>
-    <div class="person-detail">
-        <div>
-            <p class="name"> <?= $person_name ?> </p>
-            <p><?= $person_info['role_title'] . ", " . $person_info['group_name'] . " Group" ?></p>
+    
+    <?php if (isset($_SESSION['success'])): ?>
+        <div class="message success" id="log-message"><?= htmlentities($_SESSION['success']); ?></div>
+        <script>
+            // Automatically hide the error message after 5 seconds
+            setTimeout(() => {
+                const errorMessage = document.getElementById('log-message');
+                if (errorMessage) {
+                    errorMessage.style.transition = "opacity 1s";
+                    errorMessage.style.opacity = "0";
+                    setTimeout(() => errorMessage.remove(), 1000); // Remove from DOM after fade-out
+                }
+            }, 3000);
+            </script>
+        <?php unset($_SESSION['success']); ?>
+        
+        <?php elseif (isset($_SESSION['error'])): ?>
+            <div class="message error" id="log-message"><?= htmlentities($_SESSION['error']); ?></div>
+            <script>
+                // Automatically hide the error message after 5 seconds
+                setTimeout(() => {
+                    const errorMessage = document.getElementById('log-message');
+                    if (errorMessage) {
+                        errorMessage.style.transition = "opacity 1s";
+                        errorMessage.style.opacity = "0";
+                        setTimeout(() => errorMessage.remove(), 1000); // Remove from DOM after fade-out
+                    }
+                }, 3000);
+                </script>
+        <?php unset($_SESSION['error']); ?>
+        <?php endif; ?>
+        
+        <?php if (isset($_GET['Name']) && isset($assignment_count_pp)): ?>
+        <div class="person-detail">
+            <div>
+                <p class="name"> <?= $person_name ?> </p>
+                <p><?= $person_info['role_title'] . ", " . $person_info['group_name'] . " Group" ?></p>
+            </div>
+            <p><?= "Total Assignment Count: " . $assignment_count_pp ?></p>
         </div>
-        <p><?= "Total Assignment Count: " . $assignment_count_pp ?></p>
-    </div>
-    <?php endif; ?>
+        <?php endif; ?>
 
     <div class="separator"></div>
 
@@ -99,10 +130,6 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
                     </div>
             <?php endforeach; ?>
         </div>
-    
-    <?php endif; if (isset($_SESSION['error'])): ?>
-        <div class="error"><?= htmlentities($_SESSION['error']); ?></div>
-        <?php unset($_SESSION['error']); ?>
     <?php endif; ?>
     <?php unset($_GET['Name']); ?>
 </body>
