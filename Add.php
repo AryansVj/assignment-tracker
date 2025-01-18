@@ -4,17 +4,18 @@ require_once "model/database.php";
 require_once "model/Assignment.php";
 require_once "model/PeopleManager.php";
 require_once "model/Weeks.php";
+
+$_SESSION['source'] = 'Add';
+
 $db = new Database();
 $db->connectDB();
 
 $assignments = new Assignment($db->pdo);
 $people = new People($db->pdo);
 $weeks = new Weeks($db->pdo);
-$_SESSION['weekly_count'] = $weeks->getCount($_SESSION['week']);
 
 if ( isset($_POST['Name']) && isset($_POST['category']) ) {
     if ( (strlen($_POST['Name']) > 0) && (strlen($_POST['category']) > 0) ) {
-
 
         $person_id = $people->getPersonID($_POST['Name']);
         if ($person_id == -1) {
@@ -28,9 +29,10 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
         
         if ( $assignments->addAssignment($person_id, $_POST['category'], $assistant_id, $_SESSION['week'], $_POST['status'] + 0, $_POST['level'] + 0, $_POST['hall']) == 0) {
             $_SESSION['success'] = 'Assignment for ' . $_POST['Name'] . ' was successfully added!';
-            $_SESSION['weekly_count'] = $_SESSION['weekly_count'] + 1;
             
-            $weeks->updateCount($_SESSION['week'], $_SESSION['weekly_count']);
+            // Incrementing weekly count by refering to the db
+            $weekly_count = $weeks->getCount($_SESSION['week']);
+            $weeks->updateCount($_SESSION['week'], $weekly_count + 1);
 
         } else if ( !isset($_SESSION['error']) ) {
             $_SESSION['error'] = 'Assignment addition failed!';

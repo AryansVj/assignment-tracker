@@ -27,9 +27,7 @@ if (!isset($_GET['assignment_id'])) {
         $_SESSION['assignment_id'] = $_GET['assignment_id'];
     }
     
-    if ( !isset($_SESSION['week']) ) {
-        $_SESSION['week'] = $weeks->getWeekID($assignment['weekly_date']);
-    }
+    $_SESSION['week'] = $weeks->getWeekID($assignment['weekly_date']);
 }
 
 if ($_SESSION['source'] == 'individual') {
@@ -40,13 +38,17 @@ if ($_SESSION['source'] == 'individual') {
 if (isset($_POST['assignment_id'])) {
     $res = $assignments->deleteAssignment($_POST['assignment_id']);
     if ($res == 0) {
-        if (!isset($_SESSION['weekly_count'])) $_SESSION['weekly_count'] = $weeks->getCount($_SESSION['week']);
+        // Decrementing weekly count by refering to the db
+        $_SESSION['weekly_count'] = $weeks->getCount($_SESSION['week']);
         $weeks->updateCount($_SESSION['week'], $_SESSION['weekly_count'] - 1);
+
         $_SESSION['success'] = 'Assignment successfully deleted!';
+        
         header("Location:" . $back_path);
         return;
     } else if ($res == -1) {
         $_SESSION['error'] = 'Assignment delete failed! (ID: '. $_POST['assignment_id'] . ')';
+
         header("Location: Delete.php?assignment_id=" . htmlentities($_POST['assignment_id']));
         return;
     }
