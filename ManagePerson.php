@@ -8,30 +8,42 @@ $db->connectDB();
 
 $people = new People($db->pdo);
 
-if ( isset($_POST['Name']) && ($_POST['role'] != 0) && ($_POST['group'] != 0) && ($_POST['Name'] != "Name") ) {
 
+if ( isset($_POST['Add']) && isset($_POST['Name']) && ($_POST['role'] != 0) && ($_POST['group'] != 0) && ($_POST['Name'] != "Name") ) {
+    
     $check_id = $people->getPersonID($_POST['Name']);
     
     if ($check_id == -1) {
         $res = $people->addPerson($_POST['Name'], $_POST['role'] + 0, $_POST['group'] + 0,  $_POST['responsibility'] + 0);
-        if ($res === 0) {
+        if ($res == 0) {
             $_SESSION['success'] = $_POST['Name'] . " was successfully added";
-            echo "<pre>";
-            echo $_SESSION['success'];
-            echo "</pre>";
         } else {
             $_SESSION['error'] = "Error adding the record! Try again";
         }
     } else {
         $_SESSION['error'] = "Error: A record with name " . $_POST['Name'] . " already exists!";
     }
-    header("Location: AddPerson.php");
+    header("Location: ManagePerson.php");
+    return;
+} elseif ( isset($_POST['Delete']) && isset($_POST['Name']) ) {
+    $check_id = $people->getPersonID($_POST['Name']);
+    if ( $check_id != -1) {
+        $res = $people->deletePerson($check_id);
+        if ($res == 0) {
+            $_SESSION['success'] = $_POST['Name'] . " was successfully deleted";
+        } elseif ($res == -1) {
+            $_SESSION['error'] = "Failed to delete record. Try again!";
+        }
+    } else {
+        $_SESSION['error'] = "Error: A record with name " . $_POST['Name'] . " does not exists!";
+    }
+    header("Location: ManagePerson.php");
     return;
 } elseif ( isset($_POST['Name']) ) {
     $_SESSION['error'] = "Error: One or more fields you entered are invalid!";
-    header("Location: AddPerson.php");
+    header("Location: ManagePerson.php");
     return;
-}
+} 
 
 ?>
 
@@ -91,8 +103,9 @@ if ( isset($_POST['Name']) && ($_POST['role'] != 0) && ($_POST['group'] != 0) &&
                 <input type="radio" name="responsibility" value="3"> Elder
             </p>
             <div class="button-container">
-                <input type="submit" value="Add Person">
-                <a href="index.php" class="btn-link">Go Back</a>
+                <input class="add" type="submit" name="Add" value="Add Person">
+                <input class="delete" type="submit" name="Delete" value="Delete">
+                <a href="index.php" class="btn-link">Home</a>
             </div>
         </form>
     </div>

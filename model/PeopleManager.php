@@ -22,6 +22,22 @@ class People {
         return 0;
     }
 
+    public function deletePerson($person_id) {
+        $query = "DELETE FROM People WHERE person_id = :person_id";
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['person_id' => $person_id]);
+        } catch (PDOException $e) {
+            echo 'Exception occured. Error code: ' . $e->getCode(); 
+            echo '<br>Error Message: ' . $e->getMessage();
+
+            return -1;
+        }
+
+        return 0;
+    }
+
     public function getPersonID($person_name) {
         $query = "SELECT person_id FROM People WHERE name = ?";
 

@@ -66,8 +66,16 @@ input[type="submit"] {
     transition: background-color 0.3s;
 }
 
-input[type="submit"]:hover {
+input[type="submit"].add:hover {
     background-color: #0056b3;
+}
+
+input[type="submit"].delete {
+    background-color: #ee210a;
+}
+
+input[type="submit"].delete:hover {
+    background-color: #bc1c0b;
 }
 
 .btn-link {
