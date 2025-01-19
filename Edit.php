@@ -70,9 +70,15 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/stylesEdit.css">
+    <link rel="stylesheet" href="css/styles.css">
     <title>Edit Assignment</title>
 </head>
 <body>
+    <div class="nav">
+        <a href="index.php"><div class="home"></div></a>
+        <a class="people" href="ManagePerson.php">People</a>
+        <a class="weeks" href="SelectWeek.php">Weeks</a>
+    </div>
     <h1>Edit the Assignment</h1>
     <div class="container">
         <div class="sub-data">

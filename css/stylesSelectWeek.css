@@ -1,11 +1,6 @@
 /* General Body Styles */
 body {
-    font-family: 'Arial', sans-serif;
     line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,7 +19,7 @@ body {
 
 /* Page Heading */
 h1 {
-    font-size: 1.8em;
+    font-size: 2em;
     margin-bottom: 20px;
     color: #0056b3;
     font-weight: bold;
@@ -40,7 +35,7 @@ form label {
     display: block;
     font-size: 1rem;
     margin-bottom: 8px;
-    text-align: left;
+    text-align: center;
     color: #555;
 }
 

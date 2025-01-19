@@ -28,14 +28,20 @@ session_destroy();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Date</title>
     <link rel="stylesheet" href="css/stylesSelectWeek.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Get Date</title>
 </head>
 <body>
+    <div class="nav">
+        <a href="index.php"><div class="home"></div></a>
+        <a class="people" href="ManagePerson.php">People</a>
+        <a class="weeks" href="SelectWeek.php">Weeks</a>
+    </div>
     <div class="container">
-        <h1>Set the date of the week for assignments</h1>
+        <h1>Welcome</h1>
         <form method="post">
-            <p><label for="week">Select the meeting date of the week</label></p>
+            <p><label for="week">Select the meeting date of the week to display</label></p>
             <input type="date" id="week" name="WeeklyDate" required><br>
             <input type="submit" value="Submit">
         </form>

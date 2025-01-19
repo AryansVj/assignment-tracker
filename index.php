@@ -4,18 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <script src="https://kit.fontawesome.com/19357d3bf8.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/styles.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            /* background-color: #f5f5f5; */
             background-image: linear-gradient(150deg, #f5f5f5ff, #f5f5f575 70%), url('assets/8495460_18933.jpg');
             background-size: cover;
             color: #333;
             align-items: center;
-            height: 100vh;
+            height: 80vh;
         }
 
         div.nav {
@@ -106,9 +102,9 @@
 </head>
 <body>
     <div class="nav">
-        <div class="home"><a href="index.php"><i class="fa-solid fa-house"></i></a></div>
-        <div class="people"><a href="ManagePerson.php">People</a></div>
-        <div class="weeks"><a href="SelectWeek.php">Weeks</a></div>
+        <a href="index.php"><div class="home"></div></a>
+        <a class="people" href="ManagePerson.php">People</a>
+        <a class="weeks" href="SelectWeek.php">Weeks</a>
     </div>
     <div class="container">
         <h1>Welcome to the JW Assignment Tracker!</h1>

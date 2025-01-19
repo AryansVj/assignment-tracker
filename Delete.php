@@ -63,9 +63,15 @@ if (isset($_POST['assignment_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/stylesDelete.css">
+    <link rel="stylesheet" href="css/styles.css">
     <title>Delete Assignment</title>
 </head>
 <body>
+    <div class="nav">
+        <a href="index.php"><div class="home"></div></a>
+        <a class="people" href="ManagePerson.php">People</a>
+        <a class="weeks" href="SelectWeek.php">Weeks</a>
+    </div>
     <div class="container">
         <h1>Delete Assignment</h1>
 

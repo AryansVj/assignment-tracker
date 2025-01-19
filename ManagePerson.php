@@ -52,10 +52,16 @@ if ( isset($_POST['Add']) && isset($_POST['Name']) && ($_POST['role'] != 0) && (
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/stylesManagePerson.css">
+    <link rel="stylesheet" href="css/styles.css">
     <title>Add Person</title>
-    <link rel="stylesheet" href="css/stylesAddPerson.css">
 </head>
 <body>
+    <div class="nav">
+        <a href="index.php"><div class="home"></div></a>
+        <a class="people" href="ManagePerson.php">People</a>
+        <a class="weeks" href="SelectWeek.php">Weeks</a>
+    </div>
     <h1>Add a New Person</h1>
     <div class="form-container">
         <!-- Log Message Section -->

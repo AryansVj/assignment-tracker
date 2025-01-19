@@ -21,11 +21,8 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
         if ($person_id == -1) {
             $_SESSION['error'] = 'Assignment addition failed. Person Name error!';
         }
-        if ($_POST['assistant'] === "None") {
-            $assistant_id = 5;
-        } else {
-            $assistant_id = $people->getPersonID($_POST['assistant']);
-        }
+        
+        $assistant_id = $people->getPersonID($_POST['assistant']);
         
         if ( $assignments->addAssignment($person_id, $_POST['category'], $assistant_id, $_SESSION['week'], $_POST['status'] + 0, $_POST['level'] + 0, $_POST['hall']) == 0) {
             $_SESSION['success'] = 'Assignment for ' . $_POST['Name'] . ' was successfully added!';
@@ -50,9 +47,15 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/stylesAdd.css">
+    <link rel="stylesheet" href="css/styles.css">
     <title>Add Assignment</title>
 </head>
 <body>
+    <div class="nav">
+        <a href="index.php"><div class="home"></div></a>
+        <a class="people" href="ManagePerson.php">People</a>
+        <a class="weeks" href="SelectWeek.php">Weeks</a>
+    </div>
     <h1>Weekly Dashboard</h1>
     <h3>Week: <?= htmlentities($_SESSION['date']); ?></h3>
 

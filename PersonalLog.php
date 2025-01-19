@@ -19,7 +19,7 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
     
     $person_info = $people->getPersonInfo($person_name);
     $assignment_count_pp = 0;
-    
+
     if ($assignment_list == false) {
         $_SESSION['error'] = "No assignments found for " . $person_name;
     } else if ($assignment_list == -1) {
@@ -35,10 +35,16 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Record by Individual</title>
     <link rel="stylesheet" href="css/stylesIndividual.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Record by Individual</title>
 </head>
 <body>
+    <div class="nav">
+        <a href="index.php"><div class="home"></div></a>
+        <a class="people" href="ManagePerson.php">People</a>
+        <a class="weeks" href="SelectWeek.php">Weeks</a>
+    </div>
     <h1>Search for an individual</h1>
     <form method="get">
         <label for="Name">Enter the name of the individual:</label><br>
