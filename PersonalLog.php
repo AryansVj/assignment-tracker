@@ -1,12 +1,10 @@
-
-
 <?php
 session_start();
 require_once "model/database.php";
 require_once "model/Assignment.php";
 require_once "model/PeopleManager.php";
 
-$_SESSION['source'] = 'individual';
+$_SESSION['source'] = 'PersonalLog';
 
 $db = new Database();
 $db->connectDB();
@@ -18,14 +16,16 @@ $res = 0;
 if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
     $person_name = htmlentities($_GET['Name']);
     $assignment_list = $assignments->getByIndividual($person_name);
-
+    
+    $person_info = $people->getPersonInfo($person_name);
+    $assignment_count_pp = 0;
+    
     if ($assignment_list == false) {
         $_SESSION['error'] = "No assignments found for " . $person_name;
     } else if ($assignment_list == -1) {
         $_SESSION['error'] = "Error fetching records";
     } else {
         $assignment_count_pp = $people->getAssignmentCount($person_name);
-        $person_info = $people->getPersonInfo($person_name);
     }
 }
 ?>
@@ -40,7 +40,7 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
 </head>
 <body>
     <h1>Search for an individual</h1>
-    <form method="get" action="individual.php">
+    <form method="get">
         <label for="Name">Enter the name of the individual:</label><br>
         <input type="text" name="Name" id="Name" required value=
             <?php
