@@ -14,16 +14,24 @@ CREATE TABLE Groups (
     PRIMARY KEY(group_id)
 ) ENGINE = InnoDB;
 
+CREATE TABLE Responsibilities (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    responsibility VARCHAR(128),
+    PRIMARY KEY(id)
+ ) ENGINE = InnoDB;
+
 CREATE TABLE People (
     person_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(128),
     role_id INT UNSIGNED,
     group_id INT UNSIGNED,
+    responsibility_id INT UNSIGNED,
     PRIMARY KEY(person_id),
     INDEX USING BTREE (name),
 
     CONSTRAINT FOREIGN KEY(role_id) REFERENCES Roles (role_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT FOREIGN KEY(group_id) REFERENCES Groups (group_id) ON DELETE CASCADE ON UPDATE CASCADE    
+    CONSTRAINT FOREIGN KEY(group_id) REFERENCES Groups (group_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT FOREIGN KEY(responsibility_id) REFERENCES Responsibilities (id) ON DELETE CASCADE ON UPDATE CASCADE    
 ) ENGINE = InnoDB;
 
 CREATE TABLE AssignmentCategories (
