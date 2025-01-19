@@ -6,16 +6,20 @@ class People {
         $this->conn = $db_conn;
     }
 
-    public function addPerson($person_name, $role_id, $group_id) {
-        $query = "INSERT INTO People(name, role_id, group_id) VALUES (:person_name, :role_id, :group_id)";
+    public function addPerson($person_name, $role_id, $group_id, $responsibility_id) {
+        $query = "INSERT INTO People(name, role_id, group_id, responsibility_id) VALUES (:person_name, :role_id, :group_id, :responsibility_id)";
 
         try {
             $stmt = $this->conn->prepare($query);
-            $stmt->execute(['person_name'=>$person_name, 'role_id'=>$role_id, 'group_id'=>$group_id]);
+            $stmt->execute(['person_name' => $person_name, 'role_id' => $role_id, 'group_id' => $group_id, 'responsibility_id' => $responsibility_id]);
         } catch (PDOException $e) {
             echo 'Exception occured. Error code: ' . $e->getCode(); 
             echo '<br>Error Message: ' . $e->getMessage();
+
+            return -1;
         }
+
+        return 0;
     }
 
     public function getPersonID($person_name) {
@@ -37,7 +41,7 @@ class People {
     }
 
     public function getPersonInfo($person_name) {
-        $query = "SELECT People.name, People.person_id, Roles.role_title, Groups.group_name FROM People JOIN Roles ON People.role_id = Roles.role_id JOIN Groups ON People.group_id = Groups.group_id WHERE People.name = ?";
+        $query = "SELECT People.name, People.person_id, Roles.role_title, Groups.group_name, Responsibilities.responsibility FROM People JOIN Roles ON People.role_id = Roles.role_id JOIN Groups ON People.group_id = Groups.group_id JOIN Responsibilities ON People.responsibility_id = Responsibilities.id WHERE People.name = ?";
 
         try {
             $stmt = $this->conn->prepare($query);
