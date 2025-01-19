@@ -55,9 +55,10 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
             $_SESSION['error'] = 'Assignment update failed!';
         }
     }
-    // if ($_SESSION['source_page'] == "add") {
-        header("Location: " . $back_path);
-    // }
+    
+    unset($_SESSION['source']);
+
+    header("Location: " . $back_path);
     return;
 }
 

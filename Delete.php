@@ -44,6 +44,7 @@ if (isset($_POST['assignment_id'])) {
 
         $_SESSION['success'] = 'Assignment successfully deleted!';
         
+        unset($_SESSION['source']);
         header("Location:" . $back_path);
         return;
     } else if ($res == -1) {
