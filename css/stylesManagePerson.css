@@ -4,9 +4,18 @@ h1 {
     font-size: 24px;
 }
 
+.container {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 20px auto;
+}
+
 .form-container {
+    width: 35%;
     max-width: 400px;
-    margin: 30px auto;
+    height: fit-content;
+    margin: 30px auto; 
     padding: 20px;
     background-color: #ffffff;
     border-radius: 8px;
@@ -33,7 +42,7 @@ input[type="text"], select {
 }
 
 input[type="text"] {
-    width: 95%;
+    width: -webkit-fill-available;
 }
 
 input[type="radio"] {
@@ -109,6 +118,77 @@ input[type="submit"].delete:hover {
 
 #log-message {
     animation: fadeOut 3s ease-in-out forwards 3s;
+}
+
+.display-container {
+    width: 55%;
+    margin: 30px auto;
+}
+
+.search-select {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.search p {
+    margin: 5px;
+}
+
+.search input[type="submit"] {
+    margin: 5px 5px 2px 10px;
+}
+
+.search input[type="submit"].clear {
+    color: #000;
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+.search input[type="submit"].search {
+    margin-left: auto;
+    
+}
+
+.display p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.edit {
+    align-self: center;
+}
+
+div.edit button {
+    border: none;
+    border-radius: 5px;
+    margin: auto 5px;
+    background-color: grey;
+    padding: 5px 15px;
+    align-self: center;
+}
+
+.display-container hr {
+    /* width: 90%; */
+    border-color: #ccc7;
+    margin: 20px 5px 10px;
+}
+
+.search-row {
+    margin: 10px 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.search-row .resp {
+    border: 1px dotted rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 3px 10px;
+    align-self: center;
+    background-color: rgba(0, 0, 0, 0.1)
 }
 
 @keyframes fadeOut {
