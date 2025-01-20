@@ -19,8 +19,9 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
     
     $person_info = $people->getPersonInfo($person_name);
     $assignment_count_pp = 0;
-
-    if ($assignment_list == false) {
+    if ($person_info == false) {
+        $_SESSION['error'] = "Person named " . $person_name . " was not found!";
+    } else if ($assignment_list == false) {
         $_SESSION['error'] = "No assignments found for " . $person_name;
     } else if ($assignment_list == -1) {
         $_SESSION['error'] = "Error fetching records";
@@ -83,7 +84,7 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
         <?php unset($_SESSION['error']); ?>
         <?php endif; ?>
         
-        <?php if (isset($_GET['Name']) && isset($assignment_count_pp)): ?>
+        <?php if (isset($_GET['Name']) && isset($assignment_count_pp) && ($person_info != false)): ?>
         <div class="person-detail">
             <div>
                 <p class="name"> <?= $person_name ?> </p>
