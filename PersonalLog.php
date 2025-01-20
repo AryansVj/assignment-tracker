@@ -48,12 +48,7 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
     <h1>Search for an individual</h1>
     <form method="get">
         <label for="Name">Enter the name of the individual:</label><br>
-        <input type="text" name="Name" id="Name" required value=
-            <?php
-                if (isset($_GET['Name'])) echo $_GET['Name'];
-                else echo "";
-            ?>
-        ><br>
+        <input type="text" name="Name" id="Name" required value="<?php if (isset($_GET['Name'])) echo urldecode($_GET['Name']); else echo "";?>"><br>
         <input type="submit" value="Submit">
     </form>
     
