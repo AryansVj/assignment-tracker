@@ -28,6 +28,17 @@ if ( isset($_POST['delete']) && isset($_POST['Name']) ) {
     return;
 }
 
+if ( isset($_POST['update']) && isset($_POST['person_id']) ) {
+    $res = $people->editPerson($_POST['person_id'], $_POST['Name'], $_POST['role'], $_POST['group'], $_POST['responsibility']);
+    if ($res == -1) {
+        $_SESSION['error'] = "Error: Update failed!";
+    } elseif ($res == 0) {
+        $_SESSION['success'] = "Record update successful";
+    }
+    header("Location: ManagePerson.php");
+    return;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -79,9 +90,11 @@ if ( isset($_POST['delete']) && isset($_POST['Name']) ) {
                     <option value="3" <?= $person['responsibility'] == "Elder" ? "selected" : ""; ?>>Elder</option>
                 </select>
             </p>
+            <input type="text" name="person_id" value=<?=$person['person_id']?> hidden>
             <div class="button-container">
+                <input class="update" type="submit" name="update" value="Update">
                 <input class="delete" type="submit" name="delete" value="Delete">
-                <a href="index.php" class="btn-link">Home</a>
+                <a href="ManagePerson.php" class="btn-link">Cancel</a>
             </div>
         </form>
     </div>

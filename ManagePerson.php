@@ -112,7 +112,6 @@ if ( isset($_GET['search']) ) {
                 </p>
                 <div class="button-container">
                     <input class="add" type="submit" name="Add" value="Add Person">
-                    <input class="delete" type="submit" name="Delete" value="Delete">
                     <a href="index.php" class="btn-link">Home</a>
                 </div>
             </form>

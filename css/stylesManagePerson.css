@@ -51,13 +51,14 @@ input[type="radio"] {
 
 .button-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     text-align: center;
     margin-top: 20px;
 }
 
 input[type="submit"] {
     padding: 10px 20px;
+    margin-right: 10px;
     font-size: 14px;
     color: #fff;
     background-color: #007bff;
@@ -87,6 +88,7 @@ input[type="submit"].delete:hover {
     border-radius: 4px;
     text-decoration: none;  
     padding: 10px 20px;
+    margin-left: auto;
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.3s;
