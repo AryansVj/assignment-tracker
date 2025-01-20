@@ -25,20 +25,6 @@ if ( isset($_POST['Add']) && isset($_POST['Name']) && ($_POST['role'] != 0) && (
     }
     header("Location: ManagePerson.php");
     return;
-} elseif ( isset($_POST['Delete']) && isset($_POST['Name']) ) {
-    $check_id = $people->getPersonID($_POST['Name']);
-    if ( $check_id != -1) {
-        $res = $people->deletePerson($check_id);
-        if ($res == 0) {
-            $_SESSION['success'] = $_POST['Name'] . " was successfully deleted";
-        } elseif ($res == -1) {
-            $_SESSION['error'] = "Failed to delete record. Try again!";
-        }
-    } else {
-        $_SESSION['error'] = "Error: A record with name " . $_POST['Name'] . " does not exists!";
-    }
-    header("Location: ManagePerson.php");
-    return;
 } elseif ( isset($_POST['Name']) ) {
     $_SESSION['error'] = "Error: One or more fields you entered are invalid!";
     header("Location: ManagePerson.php");
@@ -180,8 +166,10 @@ if ( isset($_GET['search']) ) {
                                 <p class="resp"><?= $row['responsibility']?></p>
                             <?php endif;?>
                             <div class="edit">
-                                <button>Edit</button>
-                                <button>Delete</button>
+                                <?php $view_path = str_replace(' ', '+', "PersonalLog.php?Name=" . $row['name']); ?>
+                                <?php $edit_path = str_replace(' ', '+', "EditPerson.php?Name=" . $row['name']); ?>
+                                <a href=<?= $view_path ?>><button>View</button></a>
+                                <a href=<?= $edit_path ?>><button>Edit</button></a>
                             </div>
                         </div>
                     <?php endforeach;?>

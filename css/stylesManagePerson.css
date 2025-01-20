@@ -168,6 +168,10 @@ div.edit button {
     align-self: center;
 }
 
+div.edit button:hover {
+    cursor: pointer;
+}
+
 .display-container hr {
     /* width: 90%; */
     border-color: #ccc7;
