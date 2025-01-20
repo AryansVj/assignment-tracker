@@ -89,4 +89,39 @@ class People {
         $res = $stmt->fetch();
         return $res['assignment_count'];
     }
+
+    public function searchPeople($person_name = "", $role = NULL, $group = NULL, $responsibility = NULL) {
+        $query = "SELECT People.person_id, People.name, Roles.role_title, Groups.group_name, Responsibilities.responsibility
+                FROM People JOIN Roles ON People.role_id = Roles.role_id JOIN Groups ON People.group_id = Groups.group_id JOIN Responsibilities ON People.responsibility_id = Responsibilities.id 
+                WHERE People.name LIKE :person_name";
+        
+        $params = array('person_name' => "%" . $person_name . "%");
+
+        if ($role != NULL) {
+            $query .= " AND People.role_id = :role";
+            $params['role'] = $role;
+        }
+        if ($group != NULL) {
+            $query .= " AND People.group_id = :group";
+            $params['group'] = $group;
+        }
+        if ($responsibility != NULL) {
+            $query .= " AND People.responsibility_id = :responsibility";
+            $params['responsibility'] = $responsibility;
+        }
+
+        $query .= " ORDER BY People.name";
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute($params);
+        } catch (PDOException $e) {
+            echo 'Exception occured. Error code: ' . $e->getCode(); 
+            echo '<br>Error Message: ' . $e->getMessage();
+
+            return -1;
+        }
+
+        return $stmt->fetchAll();
+    }
 }
