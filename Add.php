@@ -57,7 +57,6 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
         <a class="weeks" href="SelectWeek.php">Weeks</a>
     </div>
     <h1>Weekly Dashboard</h1>
-    <h3>Week: <?= htmlentities($_SESSION['date']); ?></h3>
 
     <div class="container">
         <!-- Log Messages -->
@@ -100,7 +99,7 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
             <form method="post">
                 <p>
                     <label for="Name">Enter the Name </label>
-                    <input type="text" id="Name" name="Name" value="Name">
+                    <input type="text" id="Name" name="Name" placeholder="Name">
                 </p>
                 <p>
                     <label for="category">Assignment</label>
@@ -152,6 +151,17 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
             $weekly_assignments = $assignments->getWeek($_SESSION['date']);
         ?>
         <div class="assignments-container">
+            <div class="week-details">
+                <?php 
+                    $date = strtotime(htmlentities($_SESSION['date']));
+                    $weekly_count = $weeks->getCount($_SESSION['week']);
+                ?>
+                <p><?= date('F d', $date); ?></p>
+                <p><?= date('Y', $date); ?></p>
+                <a href="SelectWeek.php">Change</a>
+                <p class="plabel">Assignment Count</p>
+                <p><?= $weekly_count ?></p>
+            </div>
             <div class="assignment-section">
                 <h4>Hall 1 Assignments</h4>
                 <?php

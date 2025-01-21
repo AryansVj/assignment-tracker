@@ -1,11 +1,7 @@
-h1 {
-    color: #2c3e50;
-    margin: 30px 10px 10px;
-}
-
 h3 {
     color: #2c3e50;
     margin: 0;
+    text-align: center;
 }
 
 .container {
@@ -122,6 +118,43 @@ input[type="submit"]:hover {
 
 .assignments-container {
     max-width: 60%;
+}
+
+div.week-details {
+    display: flex;
+    justify-content: left;
+}
+
+.week-details p, .week-details a {
+    padding: 5px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: 0;
+    margin-right: 5px;
+}
+
+.week-details a {
+    text-decoration: none;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0);
+    color: #555;
+    margin-left: 10px;
+    transition: background-color 0.2s;
+}
+
+.week-details a:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    cursor: pointer;
+}
+
+.week-details .plabel {
+    border: none;
+    margin-left: auto;
+    padding: 7px 10px 3px;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .assignment-section h4 {
