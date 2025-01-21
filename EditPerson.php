@@ -58,7 +58,6 @@ if ( isset($_POST['update']) && isset($_POST['person_id']) ) {
     </div>
     <h1>Edit or Delete a person record</h1>
     <div class="form-container">
-        <p>Are you sure you want to edit/delete this person?</p>
         <!-- Form Section -->
         <form method="post" class="edit">
             <p>

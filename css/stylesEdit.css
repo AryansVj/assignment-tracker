@@ -8,12 +8,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-    text-align: center;
-    margin-top: 50px;
-    margin-bottom: 20px;
-}
-
 .sub-data {
     display: flex;
     justify-content: space-between;

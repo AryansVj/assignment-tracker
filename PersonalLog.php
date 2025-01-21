@@ -48,8 +48,7 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
     </div>
     <h1>Search individual assignment logs</h1>
     <form method="get">
-        <label for="Name">Enter the name to view the assignment log</label><br>
-        <input type="text" name="Name" id="Name" required value="<?php if (isset($_GET['Name'])) echo urldecode($_GET['Name']); else echo "";?>"><br>
+        <input type="text" name="Name" id="Name" placeholder="Enter the name to view the log" required value="<?php if (isset($_GET['Name'])) echo urldecode($_GET['Name']); else echo "";?>"><br>
         <div class="button-container">
             <input type="submit" value="Submit">
             <a href="ManagePerson.php" class="btn-link">Cancel</a>

@@ -47,7 +47,7 @@
             border-radius: 50px;
         }
 
-        h1 {
+        h1.main {
             font-size: 50px;
             margin-top: 20vh;
             margin-bottom: 10px;
@@ -107,7 +107,7 @@
         <a class="weeks" href="SelectWeek.php">Weeks</a>
     </div>
     <div class="container">
-        <h1>Welcome to the JW Assignment Tracker!</h1>
+        <h1 class="main">Welcome to the JW Assignment Tracker!</h1>
         <p class="congregation">Kandy Congregation</p>
         <div class="nav-container">
             <a href="SelectWeek.php">

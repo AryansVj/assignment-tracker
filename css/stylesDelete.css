@@ -7,10 +7,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-h1 {
-    text-align: center;
-    color: #444;
-}
+
 .message {
     padding: 10px;
     margin-bottom: 20px;

@@ -43,7 +43,7 @@ session_destroy();
         <form method="post">
             <p><label for="week">Select the meeting date of the week to display</label></p>
             <input type="date" id="week" name="WeeklyDate" required><br>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Select">
         </form>
     </div>
 </body>

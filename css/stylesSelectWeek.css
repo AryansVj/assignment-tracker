@@ -17,14 +17,6 @@ body {
     text-align: center;
 }
 
-/* Page Heading */
-h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: #0056b3;
-    font-weight: bold;
-}
-
 /* Form Styling */
 form {
     margin-top: 20px;
@@ -51,7 +43,7 @@ input[type="date"] {
 }
 
 input[type="date"]:focus {
-    border-color: #0056b3;
+    border-color: #007bff;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 86, 179, 0.3);
 }
@@ -61,7 +53,7 @@ input[type="submit"] {
     padding: 10px 20px;
     font-size: 1rem;
     color: #fff;
-    background-color: #0056b3;
+    background-color: #007bff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
