@@ -46,11 +46,14 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
         <a class="people" href="ManagePerson.php">People</a>
         <a class="weeks" href="SelectWeek.php">Weeks</a>
     </div>
-    <h1>Search for an individual</h1>
+    <h1>Search individual assignment logs</h1>
     <form method="get">
-        <label for="Name">Enter the name of the individual:</label><br>
+        <label for="Name">Enter the name to view the assignment log</label><br>
         <input type="text" name="Name" id="Name" required value="<?php if (isset($_GET['Name'])) echo urldecode($_GET['Name']); else echo "";?>"><br>
-        <input type="submit" value="Submit">
+        <div class="button-container">
+            <input type="submit" value="Submit">
+            <a href="ManagePerson.php" class="btn-link">Cancel</a>
+        </div>
     </form>
     
     <?php if (isset($_SESSION['success'])): ?>
@@ -87,7 +90,7 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
         <?php if (isset($_GET['Name']) && isset($assignment_count_pp) && ($person_info != false)): ?>
         <div class="person-detail">
             <div>
-                <p class="name"> <?= $person_name ?> </p>
+                <p class="name"> <?= $person_info['name'] ?> </p>
                 <p><?= $person_info['role_title'] . ", " . $person_info['group_name'] . " Group" ?></p>
             </div>
             <p><?= "Total Assignment Count: " . $assignment_count_pp ?></p>

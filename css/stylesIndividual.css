@@ -4,11 +4,6 @@ body {
     align-items: center;
 }
 
-h1 {
-    text-align: center;
-    color: #444;
-}
-
 .message {
     padding: 10px 15px;
     margin-bottom: 20px;
@@ -46,17 +41,15 @@ form {
     margin-top: 2.5%;
     margin-bottom: 2.5%;
     padding: 15px;
-    background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     width: 30%;
     text-align: center;
 }
 
 form input[type="text"] {
     padding: 8px;
-    width: 90%;
-    margin: 10px 0;
+    width: -webkit-fill-available;
+    margin: 20px 0 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
@@ -72,6 +65,29 @@ form input[type="submit"] {
 
 form input[type="submit"]:hover {
     background-color: #0056b3;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-link {
+    color: #333;
+    background-color: transparent;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-decoration: none;  
+    padding: 10px 20px;
+    margin-left: auto;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-link:hover {
+    background-color: #f4f4f9;
 }
 
 .separator {
@@ -147,7 +163,7 @@ form input[type="submit"]:hover {
 }
 
 .assignment-card .details .category {
-    color: #007BFF;
+    /* color: #007BFF; */
     font-size: 1.1em;
 }
 
@@ -163,16 +179,17 @@ form input[type="submit"]:hover {
 }
 
 .assignment-card .edit a button {
-    background-color: #007BFF;
-    color: #fff;
+    color: #1a1a1a;
     font-size: 1em;
     padding: 10px 5px;
-    border: none;
-    border-radius: 8px;
+    border: 1px solid rgb(173, 173, 173);
+    background-color: rgb(228, 228, 228);
+    border-radius: 25px;
     width: 80px;
+    transition: background-color 0.3s;
 }
 
 .assignment-card .edit a button:hover {
-    background-color: #008BFF;
+    background-color: rgb(200, 200, 200);
     cursor: pointer;
 }
