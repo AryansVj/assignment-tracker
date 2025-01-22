@@ -15,19 +15,47 @@ $res = 0;
 
 if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
     $person_name = htmlentities($_GET['Name']);
-    $assignment_list = $assignments->getByIndividual($person_name);
+    if ( !empty($_GET['date-from']) && !empty($_GET['date-to']) ) {
+        if (strtotime($_GET['date-from']) > strtotime($_GET['date-to'])) {
+            $assignment_list = -2;
+        } else {
+            $assignment_list = $assignments->getBoundByDatePerson(htmlentities($_GET['date-from']), htmlentities($_GET['date-to']), $person_name);
+        }
+    } else {
+        $assignment_list = $assignments->getByIndividual($person_name);
+    }
     
     $person_info = $people->getPersonInfo($person_name);
-    $assignment_count_pp = 0;
+    $assignment_count_pp = NULL;
+    
     if ($person_info == false) {
         $_SESSION['error'] = "Person named " . $person_name . " was not found!";
+        unset($assignment_list);
     } else if ($assignment_list == false) {
-        $_SESSION['error'] = "No assignments found for " . $person_name;
+        $_SESSION['error'] = "No assignments found for the given query";
+    } else if ($assignment_list == -2) {
+        $_SESSION['error'] = "Invalid range of dates";
+        unset($assignment_list);
     } else if ($assignment_list == -1) {
         $_SESSION['error'] = "Error fetching records";
+        unset($assignment_list);
     } else {
         $assignment_count_pp = $people->getAssignmentCount($person_name);
     }
+} elseif ( !empty($_GET['date-from']) && !empty($_GET['date-to']) ) {
+    if (strtotime($_GET['date-from']) > strtotime($_GET['date-to'])) {
+        $_SESSION['error'] = "Invalid range of dates";
+    } else {
+        $assignment_list = $assignments->getBoundByDate(htmlentities($_GET['date-from']), htmlentities($_GET['date-to']));
+        if ($assignment_list == false) {
+            $_SESSION['error'] = "No assignments found for the given dates";
+        } else if ($assignment_list == -1) {
+            $_SESSION['error'] = "Error fetching records";
+        }
+    }
+    
+} else if (isset($_GET['search'])) {
+    $_SESSION['error'] = "Invalid query";
 }
 ?>
 
@@ -36,7 +64,7 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/stylesIndividual.css">
+    <link rel="stylesheet" href="css/stylesLog.css">
     <link rel="stylesheet" href="css/styles.css">
     <title>Record by Individual</title>
 </head>
@@ -46,12 +74,18 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
         <a class="people" href="ManagePerson.php">People</a>
         <a class="weeks" href="SelectWeek.php">Weeks</a>
     </div>
-    <h1>Search individual assignment logs</h1>
+    <h1>Search for Assignment Log</h1>
     <form method="get">
-        <input type="text" name="Name" id="Name" placeholder="Enter the name to view the log" required value="<?php if (isset($_GET['Name'])) echo urldecode($_GET['Name']); else echo "";?>"><br>
+        <input type="text" name="Name" id="Name" placeholder="Enter the name to view the log" value="<?php if (isset($_GET['Name'])) echo urldecode($_GET['Name']); else echo "";?>"><br>
+        <div class="date-input">
+            <label for="date-from">From</label>
+            <input type="date" name="date-from" value="<?php if (!empty($_GET['date-from'])) echo urldecode($_GET['date-from']);?>" id="date-from">
+            <label for="date-to">To</label>
+            <input type="date" name="date-to" value="<?php if (!empty($_GET['date-to'])) echo urldecode($_GET['date-to']);?>" id="date-to">
+        </div>
         <div class="button-container">
-            <input type="submit" value="Submit">
-            <a href="ManagePerson.php" class="btn-link">Cancel</a>
+            <input type="submit" name="search" value="Search">
+            <a href="Log.php" class="btn-link">Clear</a>
         </div>
     </form>
     
@@ -98,7 +132,7 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
 
     <div class="separator"></div>
 
-    <?php if ( isset($_GET['Name']) ): ?>
+    <?php if ( isset($assignment_list) ): ?>
         <div class="assignments-container">
             <?php
                 $grouped_assignments = [];
@@ -118,7 +152,14 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
                                 </div>
                                 <div class="details">
                                     <strong class="category"><?= htmlentities($row['category_title']); ?></strong><br>
-                                    Assistant: <?= htmlentities($row['assistant_name']); ?><br>
+                                    <?php if (strlen($_GET['Name']) < 1) {
+                                        echo '<strong>' . htmlentities($row['person_name']) . '</strong>';
+                                        echo ($row['assistant_name'] != "None") ? (' with ' . htmlentities($row['assistant_name']) . '<br>'): '<br>';
+                                    } else {
+                                        echo 'Assistant:  ' . htmlentities($row['assistant_name']) . '<br>';
+                                    }
+                                    ?>
+                                    <!-- Assistant: <?= htmlentities($row['assistant_name']); ?><br> -->
                                     Hall: <?= htmlentities($row['hall']); ?>
                                 </div>
                                 <div class="status">

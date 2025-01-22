@@ -38,11 +38,11 @@ p.name {
 } 
 
 form {
-    margin-top: 30px;
+    margin-top: 10px;
     margin-bottom: 20px;
     padding: 15px;
     border-radius: 8px;
-    width: 30%;
+    width: 450px;
     text-align: center;
     font-size: 1em;
 }
@@ -54,6 +54,29 @@ form input[type="text"] {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 1em;
+}
+
+form .date-input {
+    display: flex;
+    justify-content: space-around;
+}
+
+form .date-input label {
+    margin: 10px;
+    margin-left: 0;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+form input[type="date"] {
+    width: 150px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease-in-out;
 }
 
 form input[type="submit"] {
