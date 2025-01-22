@@ -140,7 +140,7 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
 
             <div class="button-container">
                 <input type="submit" value="Update Assignment">
-                <a href=<?= $back_path ?> class="cancel-btn">Cancel</a>
+                <a href=<?= $back_path ?> class="btn-link">Cancel</a>
             </div>
         </form>
 

@@ -79,20 +79,6 @@ form input[type="date"] {
     transition: all 0.3s ease-in-out;
 }
 
-form input[type="submit"] {
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 1em;
-}
-
-form input[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
 .button-container {
     display: flex;
     justify-content: space-around;
@@ -100,25 +86,6 @@ form input[type="submit"]:hover {
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
-}
-
-.btn-link {
-    color: #333;
-    background-color: transparent;
-    text-decoration: none;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    text-decoration: none;  
-    padding: 10px 20px;
-    margin-left: auto;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 1em;
-}
-
-.btn-link:hover {
-    background-color: #f4f4f9;
 }
 
 .separator {

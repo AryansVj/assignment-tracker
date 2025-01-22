@@ -25,9 +25,15 @@
             margin: 40px auto;
             display: flex;
             justify-content: space-between;
-            background-color: #ffffff;
+            background-color: #ffffff88 ;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 50px;
+            transition: box-shadow, background-color 0.2s;
+        }
+
+        .nav-container:hover {
+            background-color: #ffffff ;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);            
         }
 
         h1.main {
@@ -64,18 +70,17 @@
             padding: 10px 15px;
             margin: 10px 0;
             font-size: 16px;
-            background-color: #fff;
-            color: #555555;
-            border: 1px solid #888;
+            background-color: #007bff;
+            color: #fff;
+            border: 1px solid #fff;
             border-radius: 20px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
         a button:hover {
-            background-color: #007bff;
-            border: 1px solid #007bff;
-            color: #fff;
+            background-color: #0d60b9;
+            /* border: 1px solid #0d60b9; */
         }
 
         a {

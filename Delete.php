@@ -107,7 +107,7 @@ if (isset($_POST['assignment_id'])) {
             <p>Do you want to delete this assignment from <?= htmlentities($assignment['weekly_date']) ?>?</p>
             <input type="hidden" name="assignment_id" value="<?= htmlentities($_GET['assignment_id']) ?>">
             <input type="hidden" name="week_id" value="<?= htmlentities($_SESSION['week']) ?>">
-            <input type="submit" value="Delete">
+            <input type="submit" class="delete" value="Delete">
         </form>
 
         <div class="back-link">

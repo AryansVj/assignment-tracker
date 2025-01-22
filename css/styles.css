@@ -30,6 +30,11 @@ div.nav {
     margin: 0 5px;
     text-decoration: none;
     color: #333;
+    transition: all 0.2s;
+}
+
+.nav a:hover {
+    color: #007bff;
 }
 
 .nav .home {
@@ -37,4 +42,41 @@ div.nav {
     background-size: contain;
     height: 20px;
     width: 20px;
+}
+
+/* Common elements */
+form input[type="submit"] {
+    text-align: center;
+    padding: 10px 20px;
+    margin-right: 10px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.btn-link {
+    color: #333;
+    background-color: transparent;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px 20px;
+    margin-left: auto;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-link:hover {
+    background-color: #f2f2f3;
 }

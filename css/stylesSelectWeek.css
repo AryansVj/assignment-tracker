@@ -48,22 +48,6 @@ input[type="date"]:focus {
     box-shadow: 0 0 5px rgba(0, 86, 179, 0.3);
 }
 
-/* Submit Button */
-input[type="submit"] {
-    padding: 10px 20px;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-input[type="submit"]:hover {
-    background-color: #004494;
-}
-
 /* Responsive Design */
 @media screen and (max-width: 480px) {
     .container {

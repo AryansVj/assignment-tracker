@@ -159,7 +159,7 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
                 ?>
                 <p><?= date('F d', $date); ?></p>
                 <p><?= date('Y', $date); ?></p>
-                <a href="SelectWeek.php">Change</a>
+                <a class="btn-link" href="SelectWeek.php">Change</a>
                 <p class="plabel">Assignment Count</p>
                 <p><?= $weekly_count ?></p>
             </div>

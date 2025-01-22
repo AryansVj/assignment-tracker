@@ -41,9 +41,6 @@ if ( isset($_GET['search']) ) {
             $_SESSION['error'] = "No results found for the given query";
         } 
     }
-} elseif ( isset($_GET['clear']) ) {
-    header("Location: ManagePerson.php");
-    return;
 }
 
 ?>
@@ -149,7 +146,7 @@ if ( isset($_GET['search']) ) {
                             <option value="3">Elder</option>
                         </select>
                     </p>
-                    <input class="clear" type="submit" name="clear" value="Clear">
+                    <a href="ManagePerson.php" class="btn-link">Clear</a>
                     <input class="search" type="submit" name="search" value="Search">
                 </div>    
             </form>
@@ -168,7 +165,7 @@ if ( isset($_GET['search']) ) {
                             <div class="edit">
                                 <?php $view_path = str_replace(' ', '+', "Log.php?Name=" . $row['name']); ?>
                                 <?php $edit_path = str_replace(' ', '+', "EditPerson.php?Name=" . $row['name']); ?>
-                                <a href=<?= $view_path ?>><button>View</button></a>
+                                <a href=<?= $view_path ?>><button>Log</button></a>
                                 <a href=<?= $edit_path ?>><button>Edit</button></a>
                             </div>
                         </div>
