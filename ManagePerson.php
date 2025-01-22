@@ -60,6 +60,7 @@ if ( isset($_GET['search']) ) {
 <body>
     <div class="nav">
         <a href="index.php"><div class="home"></div></a>
+        <a class="log" href="Log.php">Log</a>
         <a class="people" href="ManagePerson.php">People</a>
         <a class="weeks" href="SelectWeek.php">Weeks</a>
     </div>
@@ -165,7 +166,7 @@ if ( isset($_GET['search']) ) {
                                 <p class="resp"><?= $row['responsibility']?></p>
                             <?php endif;?>
                             <div class="edit">
-                                <?php $view_path = str_replace(' ', '+', "PersonalLog.php?Name=" . $row['name']); ?>
+                                <?php $view_path = str_replace(' ', '+', "Log.php?Name=" . $row['name']); ?>
                                 <?php $edit_path = str_replace(' ', '+', "EditPerson.php?Name=" . $row['name']); ?>
                                 <a href=<?= $view_path ?>><button>View</button></a>
                                 <a href=<?= $edit_path ?>><button>Edit</button></a>

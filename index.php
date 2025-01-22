@@ -14,23 +14,6 @@
             height: 80vh;
         }
 
-        div.nav {
-            position: fixed;
-            top: 10px;
-            right: 20px;
-            width: 170px;
-            display: flex;
-            justify-content: space-between;
-            background-color: #ffffff;
-            padding: 10px;
-            border-radius: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-        }
-
-        .nav a {
-            margin: 0 5px
-        }
-
         .container {
             text-align: center;
         }
@@ -103,6 +86,7 @@
 <body>
     <div class="nav">
         <a href="index.php"><div class="home"></div></a>
+        <a class="log" href="Log.php">Log</a>
         <a class="people" href="ManagePerson.php">People</a>
         <a class="weeks" href="SelectWeek.php">Weeks</a>
     </div>
@@ -113,8 +97,8 @@
             <a href="SelectWeek.php">
                 <button type="button">Weekly Dashboard</button>
             </a>
-            <a href="PersonalLog.php">
-                <button type="button">Personal Log</button>
+            <a href="Log.php">
+                <button type="button">Assignment Log</button>
             </a>
             <a href="ManagePerson.php">
                 <button type="button">Manage People</button>

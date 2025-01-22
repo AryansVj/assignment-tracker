@@ -4,7 +4,7 @@ require_once "model/database.php";
 require_once "model/Assignment.php";
 require_once "model/PeopleManager.php";
 
-$_SESSION['source'] = 'PersonalLog';
+$_SESSION['source'] = 'Log';
 
 $db = new Database();
 $db->connectDB();
@@ -71,6 +71,7 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
 <body>
     <div class="nav">
         <a href="index.php"><div class="home"></div></a>
+        <a class="log" href="Log.php">Log</a>
         <a class="people" href="ManagePerson.php">People</a>
         <a class="weeks" href="SelectWeek.php">Weeks</a>
     </div>

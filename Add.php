@@ -53,6 +53,7 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
 <body>
     <div class="nav">
         <a href="index.php"><div class="home"></div></a>
+        <a class="log" href="Log.php">Log</a>
         <a class="people" href="ManagePerson.php">People</a>
         <a class="weeks" href="SelectWeek.php">Weeks</a>
     </div>
