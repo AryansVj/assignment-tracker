@@ -58,6 +58,42 @@ class Assignment {
         return $stmt->fetchAll();
     }
 
+    public function getBoundByDate($start_date, $end_date) {
+        $query = "SELECT Person.name AS person_name, AssignmentCategories.category_title, Assistant.name AS assistant_name, Status.status_descriptor, PerformanceLevels.levels, WeeklyTracker.hall, DATE_FORMAT(Weeks.weekly_date, \"%M %d, %Y\") AS assignment_date, WeeklyTracker.assignment_id
+        FROM WeeklyTracker 
+        JOIN People AS Person ON WeeklyTracker.person_id = Person.person_id JOIN AssignmentCategories ON WeeklyTracker.category_id = AssignmentCategories.category_id JOIN People AS Assistant ON WeeklyTracker.assistant_id = Assistant.person_id JOIN Status ON WeeklyTracker.status_id = Status.status_id JOIN PerformanceLevels ON WeeklyTracker.performace_id = PerformanceLevels.performace_id JOIN Weeks ON WeeklyTracker.week_id = Weeks.week_id 
+        WHERE Weeks.weekly_date BETWEEN DATE(:start_date) AND DATE(:end_date) ORDER BY Weeks.weekly_date;";
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['start_date' => $start_date, 'end_date' => $end_date]);
+        }
+        catch (PDOException $e) {
+            echo 'Exception occured. Error code: ' . $e->getCode(); 
+            echo '<br>Error Message: ' . $e->getMessage();
+        }
+
+        return $stmt->fetchAll();
+    }
+
+    public function getBoundByDatePerson($start_date, $end_date, $person_name) {
+        $query = "SELECT Person.name AS person_name, AssignmentCategories.category_title, Assistant.name AS assistant_name, Status.status_descriptor, PerformanceLevels.levels, WeeklyTracker.hall, DATE_FORMAT(Weeks.weekly_date, \"%M %d, %Y\") AS assignment_date, WeeklyTracker.assignment_id
+        FROM WeeklyTracker 
+        JOIN People AS Person ON WeeklyTracker.person_id = Person.person_id JOIN AssignmentCategories ON WeeklyTracker.category_id = AssignmentCategories.category_id JOIN People AS Assistant ON WeeklyTracker.assistant_id = Assistant.person_id JOIN Status ON WeeklyTracker.status_id = Status.status_id JOIN PerformanceLevels ON WeeklyTracker.performace_id = PerformanceLevels.performace_id JOIN Weeks ON WeeklyTracker.week_id = Weeks.week_id 
+        WHERE Person.name = :person_name AND Weeks.weekly_date BETWEEN DATE(:start_date) AND DATE(:end_date) ORDER BY Weeks.weekly_date;";
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['start_date' => $start_date, 'end_date' => $end_date, 'person_name' => $person_name]);
+        }
+        catch (PDOException $e) {
+            echo 'Exception occured. Error code: ' . $e->getCode(); 
+            echo '<br>Error Message: ' . $e->getMessage();
+        }
+
+        return $stmt->fetchAll();
+    }
+
     public function getByIndividual($person_name) {
         $query = "SELECT AssignmentCategories.category_title, Assistant.name AS assistant_name, Status.status_descriptor, PerformanceLevels.levels, WeeklyTracker.hall, DATE_FORMAT(Weeks.weekly_date, \"%M %d, %Y\") AS assignment_date, WeeklyTracker.assignment_id
         FROM WeeklyTracker 
