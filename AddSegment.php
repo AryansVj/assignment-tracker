@@ -192,7 +192,7 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                                     Duration: <?=htmlentities($segment['duration'])?> mins <br>
                                 </div>
                                 <div class="segment-extra">
-                                    <p><?=htmlentities($segment['status_descriptor'])?></p>
+                                    <p><?=htmlentities($segment['performance'])?></p>
                                     <a href="Edit.php?assignment_id=<?= htmlentities($segment['segment_id'])?>"><button class="edit">Edit</button></a> 
                                     <a href="Delete.php?assignment_id= <?=htmlentities($segment['segment_id'])?>"><button class="delete">Delete</button></a>
                                 </div>

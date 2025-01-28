@@ -1,0 +1,219 @@
+h3 {
+    color: #2c3e50;
+    margin: 0;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 20px auto;
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+.message.error {
+    background-color: #ffe5e5;
+    color: #d8000c
+}
+
+.message.success {
+    background-color: #e5ffe6;
+    color: #0a9b00
+}
+
+.form-container, .segments-container {
+    flex: 1;
+    margin: 10px;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-container {
+    height: fit-content;
+    padding-bottom: 30px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+input[type="submit"] {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.form-container {
+    margin-right: 15px;
+    max-width: 35%;
+}
+
+.segments-container {
+    max-width: 60%;
+}
+
+div.week-details {
+    display: flex;
+    justify-content: left;
+}
+
+.week-details p {
+    padding: 5px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: 0;
+    margin-right: 5px;
+}
+
+.week-details a {
+    padding: 5px 10px;
+    margin: 0;
+    margin-left: 10px;
+}
+
+.week-details .plabel {
+    border: none;
+    margin-left: auto;
+    padding: 7px 10px 3px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.segment-section h4 {
+    color: #2c3e50;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.segment {
+    display: flex;   
+}
+
+.segment-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px 0 0 8px;
+    margin: 10px 10px 10px 0;
+    background: #f1f1f1;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 70%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.segment-details .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.segment-details strong {
+    font-size: 1.1rem;
+    color: #23405d;
+}
+
+.segment-details p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.segment-details .meeting {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #26507d;
+    color: white;
+    font-size: 1em;
+    border-radius: 5px;
+}
+
+.segment-extra {
+    width: 20%;
+    background-color: #26507d;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin: 10px 10px 10px 0;
+    text-align: center;
+}
+
+.segment-extra p {
+    margin: 0 5px;
+    margin-top: 5px;
+    padding: 5px;
+    text-transform: uppercase;
+    color: rgb(204, 204, 204);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 5px;
+}
+
+.segment-extra button {
+    margin: 3px 0 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.segment-extra button:hover {
+    background-color: #19395b;
+}
+
+.segment-extra button.edit {
+    color: rgb(187, 216, 236);
+}
+
+.segment-extra button.delete {
+    color: rgb(236, 105, 105);
+}
+
+@media (max-width: 768px) {
+    .segment-details {
+        width: 100%;
+    }
+}
