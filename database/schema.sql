@@ -78,3 +78,37 @@ CREATE TABLE WeeklyTracker (
     CONSTRAINT FOREIGN KEY(status_id) REFERENCES Status(status_id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT FOREIGN KEY(performace_id) REFERENCES PerformanceLevels(performace_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB ;
+
+CREATE TABLE Meetings (
+    meeting_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    title VARCHAR(128),
+    day_of_week INT,
+
+    PRIMARY KEY (meeting_id)
+) ENGINE = InnoDB;
+
+CREATE TABLE Segments (
+    segment_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    segment_name VARCHAR(128),
+    duration INT UNSIGNED,
+    meeting_id INT UNSIGNED,
+
+    PRIMARY KEY (segment_id),
+
+    CONSTRAINT FOREIGN KEY(meeting_id) REFERENCES Meetings(meeting_id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB;
+
+CREATE TABLE SegmentTracker (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    segment_id INT UNSIGNED,
+    person_id INT UNSIGNED,
+    week_id INT UNSIGNED,
+    status_id INT UNSIGNED,
+
+    PRIMARY KEY (id),
+
+    CONSTRAINT FOREIGN KEY(segment_id) REFERENCES Segments(segment_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT FOREIGN KEY(person_id) REFERENCES People(person_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT FOREIGN KEY(week_id) REFERENCES Weeks(week_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT FOREIGN KEY(status_id) REFERENCES Status(status_id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB;
