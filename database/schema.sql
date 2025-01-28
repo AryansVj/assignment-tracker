@@ -41,7 +41,7 @@ CREATE TABLE AssignmentCategories (
 )ENGINE = InnoDB ;
 
 CREATE TABLE PerformanceLevels (
-    performace_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    performance_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     levels VARCHAR(128),
     PRIMARY KEY (performace_id)
 ) ENGINE = InnoDB;
@@ -66,7 +66,7 @@ CREATE TABLE WeeklyTracker (
     assistant_id INT UNSIGNED,
     week_id INT UNSIGNED,
     status_id INT UNSIGNED,
-    performace_id INT UNSIGNED,
+    performance_id INT UNSIGNED,
     hall INT,
 
     PRIMARY KEY (assignment_id),
