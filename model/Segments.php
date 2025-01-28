@@ -9,7 +9,7 @@ class Segments {
     }
 
     public function getWeek($date) {
-        $query = "SELECT People.name AS person_name, Segments.segment_name, Segments.segment_id, Segments.duration, Meetings.title AS meeting_title, Meetings.meeting_id, PerformanceLevels.levels AS performance
+        $query = "SELECT People.name AS person_name, Segments.segment_name, Segments.segment_id, Segments.duration, Meetings.title AS meeting_title, Meetings.meeting_id, PerformanceLevels.levels AS performance, SegmentTracker.id AS segment_track_id
         FROM SegmentTracker 
         JOIN People ON SegmentTracker.person_id = People.person_id JOIN Segments ON SegmentTracker.segment_id = Segments.segment_id JOIN Meetings ON Segments.meeting_id = Meetings.meeting_id JOIN PerformanceLevels ON SegmentTracker.performance_id = PerformanceLevels.performance_id JOIN Weeks ON SegmentTracker.week_id = Weeks.week_id 
         WHERE Weeks.weekly_date = CAST(? AS DATE) ORDER BY Segments.segment_id;";
@@ -24,6 +24,26 @@ class Segments {
         }
 
         return $stmt->fetchAll();
+    }
+
+    public function getSegment($segment_track_id) {
+        $query = "SELECT People.name AS person_name, Segments.segment_name, Segments.duration, Meetings.title AS meeting_title, Meetings.meeting_id, PerformanceLevels.levels AS performance, Weeks.weekly_date
+        FROM SegmentTracker 
+        JOIN People ON SegmentTracker.person_id = People.person_id JOIN Segments ON SegmentTracker.segment_id = Segments.segment_id JOIN Meetings ON Segments.meeting_id = Meetings.meeting_id JOIN PerformanceLevels ON SegmentTracker.performance_id = PerformanceLevels.performance_id JOIN Weeks ON SegmentTracker.week_id = Weeks.week_id 
+        WHERE SegmentTracker.id = :segment_track_id";
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['segment_track_id' => $segment_track_id]);
+        }
+        catch (PDOException $e) {
+            echo 'Exception occured. Error code: ' . $e->getCode(); 
+            echo '<br>Error Message: ' . $e->getMessage();
+        }
+
+        $row = $stmt->fetch();
+        if ($row === False) return 0;
+        else return $row;
     }
 
     public function addSegment($segment_id, $person_id, $week_id, $performance_id) {
@@ -41,5 +61,21 @@ class Segments {
         
         return 0;
     
+    }
+    
+    public function deleteSegment($segment_track_id) {
+        $query = "DELETE FROM SegmentTracker WHERE id = :segment_track_id";
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['segment_track_id' => $segment_track_id]);
+        }
+        catch (PDOException $e) {
+            echo 'Exception occured. Error code: ' . $e->getCode(); 
+            echo '<br>Error Message: ' . $e->getMessage();
+            return -1;
+        }
+        
+        return 0;
     }
 }

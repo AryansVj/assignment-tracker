@@ -169,8 +169,8 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                                 </div>
                                 <div class="segment-extra">
                                     <p><?=htmlentities($segment['performance'])?></p>
-                                    <a href="Edit.php?assignment_id=<?= htmlentities($segment['segment_id'])?>"><button class="edit">Edit</button></a> 
-                                    <a href="Delete.php?assignment_id= <?=htmlentities($segment['segment_id'])?>"><button class="delete">Delete</button></a>
+                                    <a href="EditSegment.php?segment_track_id=<?= htmlentities($segment['segment_track_id'])?>"><button class="edit">Edit</button></a> 
+                                    <a href="DeleteSegment.php?segment_track_id=<?=htmlentities($segment['segment_track_id'])?>"><button class="delete">Delete</button></a>
                                 </div>
                             </div>
                         <?php endif;?>
@@ -193,8 +193,8 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                                 </div>
                                 <div class="segment-extra">
                                     <p><?=htmlentities($segment['performance'])?></p>
-                                    <a href="Edit.php?assignment_id=<?= htmlentities($segment['segment_id'])?>"><button class="edit">Edit</button></a> 
-                                    <a href="Delete.php?assignment_id= <?=htmlentities($segment['segment_id'])?>"><button class="delete">Delete</button></a>
+                                    <a href="EditSegment.php?segment_track_id=<?= htmlentities($segment['segment_track_id'])?>"><button class="edit">Edit</button></a> 
+                                    <a href="DeleteSegment.php?segment_track_id=<?=htmlentities($segment['segment_track_id'])?>"><button class="delete">Delete</button></a>
                                 </div>
                             </div>
                         <?php endif;?>
