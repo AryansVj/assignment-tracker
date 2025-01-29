@@ -27,7 +27,7 @@ class Segments {
     }
 
     public function getSegment($segment_track_id) {
-        $query = "SELECT People.name AS person_name, Segments.segment_name, Segments.duration, Meetings.title AS meeting_title, Meetings.meeting_id, PerformanceLevels.levels AS performance, Weeks.weekly_date
+        $query = "SELECT People.name AS person_name, Segments.segment_name, Segments.duration, Segments.segment_id, Meetings.title AS meeting_title, Meetings.meeting_id, PerformanceLevels.levels AS performance, Weeks.weekly_date
         FROM SegmentTracker 
         JOIN People ON SegmentTracker.person_id = People.person_id JOIN Segments ON SegmentTracker.segment_id = Segments.segment_id JOIN Meetings ON Segments.meeting_id = Meetings.meeting_id JOIN PerformanceLevels ON SegmentTracker.performance_id = PerformanceLevels.performance_id JOIN Weeks ON SegmentTracker.week_id = Weeks.week_id 
         WHERE SegmentTracker.id = :segment_track_id";
@@ -42,8 +42,7 @@ class Segments {
         }
 
         $row = $stmt->fetch();
-        if ($row === False) return 0;
-        else return $row;
+        return $row;
     }
 
     public function addSegment($segment_id, $person_id, $week_id, $performance_id) {
@@ -78,4 +77,21 @@ class Segments {
         
         return 0;
     }
+
+    public function updateSegment($segment_track_id, $person_id, $segment_id, $performance_id) {
+        $query = "UPDATE SegmentTracker SET person_id = :person_id, segment_id = :segment_id, performance_id = :performance_id WHERE id = :segment_track_id";
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['person_id'=> $person_id, 'segment_id' => $segment_id, 'performance_id' => $performance_id, 'segment_track_id' => $segment_track_id]);
+        }
+        catch (PDOException $e) {
+            echo 'Exception occured. Error code: ' . $e->getCode(); 
+            echo '<br>Error Message: ' . $e->getMessage();
+            return -1;
+        }
+        
+        return 0;
+    }
+
 }
