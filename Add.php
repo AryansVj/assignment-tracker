@@ -154,7 +154,7 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
         <div class="assignments-container">
             <div class="week-details">
                 <?php 
-                    $date = strtotime(htmlentities($_SESSION['date']));
+                    $date = strtotime($_SESSION['mid-date']);
                     $weekly_count = $weeks->getCount($_SESSION['week']);
                 ?>
                 <p><?= date('F d', $date); ?></p>
