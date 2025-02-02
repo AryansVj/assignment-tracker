@@ -27,6 +27,7 @@ if ( isset($_POST['WeeklyDate']) ) {
         }
         return;
     } else {
+        $_SESSION['error'] = "Invalid date";
         header("Location: SelectWeek.php");
         return;
     }
@@ -51,6 +52,24 @@ session_destroy();
         <a class="weeks" href="SelectWeek.php">Weeks</a>
     </div>
     <div class="container">
+
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="message error" id="log-message">
+                <?= htmlentities($_SESSION['error']) ?>
+            </div>
+            <script>
+                // Automatically hide the error message after 5 seconds
+                setTimeout(() => {
+                    const errorMessage = document.getElementById('log-message');
+                    if (errorMessage) {
+                        errorMessage.style.transition = "opacity 1s";
+                        errorMessage.style.opacity = "0";
+                        setTimeout(() => errorMessage.remove(), 1000); // Remove from DOM after fade-out
+                    }
+                }, 3000);
+            </script>
+        <?php unset($_SESSION['error']); endif; ?>
+
         <h1>Welcome</h1>
         <form method="post">
             <p><label for="week">Select the Sunday of the week to display</label></p>
