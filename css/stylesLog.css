@@ -87,11 +87,11 @@ form input[type="date"] {
     margin-bottom: 20px;
 }
 
-.year-group {
+.month-group {
     margin-bottom: 30px;
 }
 
-.year-heading {
+.month-heading {
     font-size: 1.2em;
     font-weight: bold;
     margin-bottom: 10px;
@@ -107,6 +107,12 @@ form input[type="date"] {
     border-radius: 8px;
     margin-bottom: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.assignment-card.segment-card {
+    background-color: #e9f0f9;
+    /* box-shadow: 0 0 8px rgba(0, 68, 186, 0.355); */
+    border: 1px solid #014893;
 }
 
 .assignment-card .date-box {
@@ -143,7 +149,7 @@ form input[type="date"] {
 }
 
 .assignment-card .details .category {
-    /* color: #007BFF; */
+    color: #014893;
     font-size: 1.1em;
 }
 

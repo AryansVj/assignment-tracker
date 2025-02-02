@@ -2,6 +2,7 @@
 session_start();
 require_once "model/database.php";
 require_once "model/Assignment.php";
+require_once "model/Segments.php";
 require_once "model/PeopleManager.php";
 
 $_SESSION['source'] = 'Log';
@@ -10,6 +11,7 @@ $db = new Database();
 $db->connectDB();
 
 $assignments = new Assignment($db->pdo);
+$segments = new Segments($db->pdo);
 $people = new People($db->pdo);
 $res = 0;
 
@@ -20,37 +22,48 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
             $assignment_list = -2;
         } else {
             $assignment_list = $assignments->getBoundByDatePerson(htmlentities($_GET['date-from']), htmlentities($_GET['date-to']), $person_name);
+            $segment_list = $segments->getBoundByDatePerson(htmlentities($_GET['date-from']), htmlentities($_GET['date-to']), $person_name);
         }
     } else {
         $assignment_list = $assignments->getByIndividual($person_name);
+        $segment_list = $segments->getByIndividual($person_name);
     }
     
     $person_info = $people->getPersonInfo($person_name);
     $assignment_count_pp = NULL;
+    $segment_count_pp = NULL;
     
     if ($person_info == false) {
         $_SESSION['error'] = "Person named " . $person_name . " was not found!";
         unset($assignment_list);
-    } else if ($assignment_list == false) {
+    } else if ( ($assignment_list == false) && ($segment_list == false) ) {
         $_SESSION['error'] = "No assignments found for the given query";
     } else if ($assignment_list == -2) {
         $_SESSION['error'] = "Invalid range of dates";
         unset($assignment_list);
-    } else if ($assignment_list == -1) {
+        unset($segment_list);
+    } else if ( ($assignment_list == -1) || ($segment_list == -1) ) {
         $_SESSION['error'] = "Error fetching records";
         unset($assignment_list);
+        unset($segment_list);
     } else {
         $assignment_count_pp = $people->getAssignmentCount($person_name);
+        $segment_count_pp = $people->getSegmentCount($person_name);
     }
+
 } elseif ( !empty($_GET['date-from']) && !empty($_GET['date-to']) ) {
     if (strtotime($_GET['date-from']) > strtotime($_GET['date-to'])) {
         $_SESSION['error'] = "Invalid range of dates";
     } else {
         $assignment_list = $assignments->getBoundByDate(htmlentities($_GET['date-from']), htmlentities($_GET['date-to']));
-        if ($assignment_list == false) {
+        $segment_list = $segments->getBoundByDate(htmlentities($_GET['date-from']), htmlentities($_GET['date-to']));
+
+        if ( ($assignment_list == false) && ($segment_list == false) ) {
             $_SESSION['error'] = "No assignments found for the given dates";
-        } else if ($assignment_list == -1) {
+        } else if ( ($assignment_list == -1) || ($segment_list == -1) ) {
             $_SESSION['error'] = "Error fetching records";
+            unset($assignment_list);
+            unset($segment_list);
         }
     }
     
@@ -121,13 +134,13 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
         <?php unset($_SESSION['error']); ?>
         <?php endif; ?>
         
-        <?php if (isset($_GET['Name']) && isset($assignment_count_pp) && ($person_info != false)): ?>
+        <?php if (isset($_GET['Name']) && (isset($assignment_count_pp) || isset($segment_count_pp)) && ($person_info != false)): ?>
         <div class="person-detail">
             <div>
                 <p class="name"> <?= $person_info['name'] ?> </p>
                 <p><?= $person_info['role_title'] . ", " . $person_info['group_name'] . " Group" ?></p>
             </div>
-            <p><?= "Total Assignment Count: " . $assignment_count_pp ?></p>
+            <p><?= "No. of Assignments: " . $assignment_count_pp . " | Segments: " . $segment_count_pp ?></p>
         </div>
         <?php endif; ?>
 
@@ -138,40 +151,80 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
             <?php
                 $grouped_assignments = [];
                 foreach ($assignment_list as $assignment) {
-                    $year = date('Y', strtotime($assignment['assignment_date']));
-                    $grouped_assignments[$year][] = $assignment;
+                    $month = date('F Y', strtotime($assignment['week_date']));
+                    $grouped_assignments[$month][] = $assignment;
+                }
+                foreach ($segment_list as $segment) {
+                    $month = date('F Y', strtotime($segment['week_date']));
+                    $grouped_assignments[$month][] = $segment;
                 }
 
-                foreach ($grouped_assignments as $year => $assignments): ?>
-                    <div class="year-group">
-                        <div class="year-heading"><?= $year; ?></div>
+                foreach ($grouped_assignments as $month => $assignments) {
+                    usort($assignments, function ($a, $b) {
+                        return strtotime($a['week_date']) - strtotime($b['week_date']);
+                    });
+                    $grouped_assignments[$month] = $assignments; // Reassign after sorting
+                }                
+
+                foreach ($grouped_assignments as $month => $assignments): ?>
+                    <div class="month-group">
+                        <div class="month-heading"><?= $month; ?></div>
                         <?php foreach ($assignments as $row): ?>
-                            <div class="assignment-card">
-                                <div class="date-box">
-                                    <div class="month"><?= date('M', strtotime($row['assignment_date'])); ?></div>
-                                    <div class="day"><?= date('d', strtotime($row['assignment_date'])); ?></div>
+                            <?php if (isset($row['segment_track_id'])): ?>
+                                <div class="assignment-card segment-card">
+                                    <div class="date-box">
+                                        <div class="month"><?= date('M', strtotime($row['week_date'])); ?></div>
+                                        <div class="day"><?= date('d', strtotime($row['week_date'])); ?></div>
+                                    </div>
+                                    <div class="details">
+                                        <strong class="category"><?= htmlentities($row['segment_name']); ?></strong>
+                                        
+                                        <?php 
+                                        if (strlen($row['title']) > 1) {
+                                            echo '<br>' . htmlentities($row['title']);
+                                        }
+                                        if (strlen($_GET['Name']) < 1) {
+                                            echo '<br><strong>' . htmlentities($row['person_name']) . '</strong>';
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="status">
+                                        <strong>Rating:</strong> <?= htmlentities($row['levels']); ?>
+                                    </div>
+                                    <div class="edit">
+                                    <a href= <?= "EditSegment.php?segment_track_id=" . htmlentities($row['segment_track_id']) ?>><button class="aedit">Edit</button></a>
+                                    <a href= <?= "DeleteSegment.php?segment_track_id=" . htmlentities($row['segment_track_id']) ?>><button class="adelete">Delete</button></a>
+                                    </div>
                                 </div>
-                                <div class="details">
-                                    <strong class="category"><?= htmlentities($row['category_title']); ?></strong><br>
-                                    <?php if (strlen($_GET['Name']) < 1) {
-                                        echo '<strong>' . htmlentities($row['person_name']) . '</strong>';
-                                        echo ($row['assistant_name'] != "None") ? (' with ' . htmlentities($row['assistant_name']) . '<br>'): '<br>';
-                                    } else {
-                                        echo 'Assistant:  ' . htmlentities($row['assistant_name']) . '<br>';
-                                    }
-                                    ?>
-                                    <!-- Assistant: <?= htmlentities($row['assistant_name']); ?><br> -->
-                                    Hall: <?= htmlentities($row['hall']); ?>
+                                
+                            <?php elseif (isset($row['assignment_id'])): ?>
+                                <div class="assignment-card">
+                                    <div class="date-box">
+                                        <div class="month"><?= date('M', strtotime($row['week_date'])); ?></div>
+                                        <div class="day"><?= date('d', strtotime($row['week_date'])); ?></div>
+                                    </div>
+                                    <div class="details">
+                                        <strong class="category"><?= htmlentities($row['category_title']); ?></strong><br>
+                                        <?php if (strlen($_GET['Name']) < 1) {
+                                            echo '<strong>' . htmlentities($row['person_name']) . '</strong>';
+                                            echo ($row['assistant_name'] != "None") ? (' with ' . htmlentities($row['assistant_name']) . '<br>'): '<br>';
+                                        } else {
+                                            echo 'Assistant:  ' . htmlentities($row['assistant_name']) . '<br>';
+                                        }
+                                        ?>
+                                        <!-- Assistant: <?= htmlentities($row['assistant_name']); ?><br> -->
+                                        Hall: <?= htmlentities($row['hall']); ?>
+                                    </div>
+                                    <div class="status">
+                                        <strong>Status:</strong> <?= htmlentities($row['status_descriptor']); ?><br>
+                                        <strong>Rating:</strong> <?= htmlentities($row['levels']); ?>
+                                    </div>
+                                    <div class="edit">
+                                    <a href= <?= "Edit.php?assignment_id=" . htmlentities($row['assignment_id']) ?>><button class="aedit">Edit</button></a>
+                                    <a href= <?= "Delete.php?assignment_id=" . htmlentities($row['assignment_id']) ?>><button class="adelete">Delete</button></a>
+                                    </div>
                                 </div>
-                                <div class="status">
-                                    <strong>Status:</strong> <?= htmlentities($row['status_descriptor']); ?><br>
-                                    <strong>Rating:</strong> <?= htmlentities($row['levels']); ?>
-                                </div>
-                                <div class="edit">
-                                <a href= <?= "Edit.php?assignment_id=" . htmlentities($row['assignment_id']) ?>><button class="aedit">Edit</button></a>
-                                <a href= <?= "Delete.php?assignment_id=" . htmlentities($row['assignment_id']) ?>><button class="adelete">Delete</button></a>
-                                </div>
-                            </div>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
             <?php endforeach; ?>
