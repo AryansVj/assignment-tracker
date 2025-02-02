@@ -45,6 +45,43 @@ class Segments {
         return $row;
     }
 
+    public function getBoundByDatePerson($start_date, $end_date, $person_name) {
+        $query = "SELECT People.name AS person_name, Segments.segment_name, PerformanceLevels.levels DATE_FORMAT(Weeks.weekly_date, \"%M %d, %Y\") SegmentTracker.id AS segment_track_id
+        FROM SegmentTracker 
+        JOIN People ON SegmentTracker.person_id = People.person_id JOIN Segments ON SegmentTracker.segment_id = Segments.segment_id JOIN PerformanceLevels ON SegmentTracker.performance_id = PerformanceLevels.performance_id JOIN Weeks ON SegmentTracker.week_id = Weeks.week_id 
+        WHERE People.name = :person_name AND Weeks.weekly_date BETWEEN DATE(:start_date) AND DATE(:end_date) ORDER BY Weeks.weekly_date;";
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['start_date' => $start_date, 'end_date' => $end_date, 'person_name' => $person_name]);
+        }
+        catch (PDOException $e) {
+            echo 'Exception occured. Error code: ' . $e->getCode(); 
+            echo '<br>Error Message: ' . $e->getMessage();
+        }
+
+        return $stmt->fetchAll();
+    }
+
+    public function getByIndividual($person_name) {
+        $query = "SELECT Segments.segment_name, PerformanceLevels.levels, DATE_FORMAT(Weeks.weekly_date, \"%M %d, %Y\") AS segment_date, SegmentTracker.id
+        FROM SegmentTracker 
+        JOIN People ON SegmentTracker.person_id = People.person_id JOIN Segments ON SegmentTracker.segment_id = Segments.segment_id JOIN PerformanceLevels ON SegmentTracker.performance_id = PerformanceLevels.performance_id JOIN Weeks ON SegmentTracker.week_id = Weeks.week_id 
+        WHERE Person.name = ? ORDER BY Weeks.weekly_date;";
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$person_name]);
+        }
+        catch (PDOException $e) {
+            echo 'Exception occured. Error code: ' . $e->getCode(); 
+            echo '<br>Error Message: ' . $e->getMessage();
+            return -1;
+        }
+
+        return $stmt->fetchAll();
+    }
+
     public function addSegment($segment_id, $person_id, $week_id, $performance_id) {
         $query = "INSERT INTO SegmentTracker (segment_id, person_id, week_id, performance_id) VALUES (:segment_id, :person_id, :week_id, :performance_id)";
 
