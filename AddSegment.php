@@ -139,7 +139,7 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                 </p>
                 <div class="button-container">
                     <input type="submit" value="Add Assignment">
-                    <a href="index.php" class="btn-link">Go Back</a>
+                    <a href="index.php" class="btn-link">Home</a>
                 </div>
             </form>
         </div>
