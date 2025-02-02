@@ -106,6 +106,24 @@ class People {
         return $res['assignment_count'];
     }
 
+    public function getSegmentCount($person_name) {
+        // Get Person wise count of total assignments
+        $query = "SELECT COUNT(id) AS segment_count FROM SegmentTracker JOIN People ON SegmentTracker.person_id = People.person_id WHERE People.name = ?";
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$person_name]);
+        } catch (PDOException $e) {
+            echo 'Exception occured. Error code: ' . $e->getCode(); 
+            echo '<br>Error Message: ' . $e->getMessage();
+
+            return -1;
+        }
+
+        $res = $stmt->fetch();
+        return $res['segment_count'];
+    }
+
     public function searchPeople($person_name = "", $role = NULL, $group = NULL, $responsibility = NULL) {
         $query = "SELECT People.person_id, People.name, Roles.role_title, Groups.group_name, Responsibilities.responsibility
                 FROM People JOIN Roles ON People.role_id = Roles.role_id JOIN Groups ON People.group_id = Groups.group_id JOIN Responsibilities ON People.responsibility_id = Responsibilities.id 
