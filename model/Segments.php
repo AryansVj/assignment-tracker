@@ -9,7 +9,7 @@ class Segments {
     }
 
     public function getWeek($date) {
-        $query = "SELECT People.name AS person_name, Segments.segment_name, Segments.segment_id, Segments.duration, Meetings.title AS meeting_title, Meetings.meeting_id, PerformanceLevels.levels AS performance, SegmentTracker.id AS segment_track_id
+        $query = "SELECT People.name AS person_name, Segments.segment_name, SegmentTracker.title, Segments.duration, Segments.segment_id, Meetings.title AS meeting_title, Meetings.meeting_id, PerformanceLevels.levels AS performance, SegmentTracker.id AS segment_track_id
         FROM SegmentTracker 
         JOIN People ON SegmentTracker.person_id = People.person_id JOIN Segments ON SegmentTracker.segment_id = Segments.segment_id JOIN Meetings ON Segments.meeting_id = Meetings.meeting_id JOIN PerformanceLevels ON SegmentTracker.performance_id = PerformanceLevels.performance_id JOIN Weeks ON SegmentTracker.week_id = Weeks.week_id 
         WHERE Weeks.weekly_date = CAST(? AS DATE) ORDER BY Segments.segment_id;";
@@ -27,7 +27,7 @@ class Segments {
     }
 
     public function getSegment($segment_track_id) {
-        $query = "SELECT People.name AS person_name, Segments.segment_name, Segments.duration, Segments.segment_id, Meetings.title AS meeting_title, Meetings.meeting_id, PerformanceLevels.levels AS performance, Weeks.weekly_date
+        $query = "SELECT People.name AS person_name, Segments.segment_name, Segments.duration, SegmentTracker.title, Segments.segment_id, Meetings.title AS meeting_title, Meetings.meeting_id, PerformanceLevels.levels AS performance, Weeks.weekly_date
         FROM SegmentTracker 
         JOIN People ON SegmentTracker.person_id = People.person_id JOIN Segments ON SegmentTracker.segment_id = Segments.segment_id JOIN Meetings ON Segments.meeting_id = Meetings.meeting_id JOIN PerformanceLevels ON SegmentTracker.performance_id = PerformanceLevels.performance_id JOIN Weeks ON SegmentTracker.week_id = Weeks.week_id 
         WHERE SegmentTracker.id = :segment_track_id";
@@ -46,7 +46,7 @@ class Segments {
     }
 
     public function getBoundByDatePerson($start_date, $end_date, $person_name) {
-        $query = "SELECT People.name AS person_name, Segments.segment_name, PerformanceLevels.levels DATE_FORMAT(Weeks.weekly_date, \"%M %d, %Y\") SegmentTracker.id AS segment_track_id
+        $query = "SELECT People.name AS person_name, Segments.segment_name, SegmentTracker.title, PerformanceLevels.levels DATE_FORMAT(Weeks.weekly_date, \"%M %d, %Y\") SegmentTracker.id AS segment_track_id
         FROM SegmentTracker 
         JOIN People ON SegmentTracker.person_id = People.person_id JOIN Segments ON SegmentTracker.segment_id = Segments.segment_id JOIN PerformanceLevels ON SegmentTracker.performance_id = PerformanceLevels.performance_id JOIN Weeks ON SegmentTracker.week_id = Weeks.week_id 
         WHERE People.name = :person_name AND Weeks.weekly_date BETWEEN DATE(:start_date) AND DATE(:end_date) ORDER BY Weeks.weekly_date;";
@@ -64,7 +64,7 @@ class Segments {
     }
 
     public function getByIndividual($person_name) {
-        $query = "SELECT Segments.segment_name, PerformanceLevels.levels, DATE_FORMAT(Weeks.weekly_date, \"%M %d, %Y\") AS segment_date, SegmentTracker.id
+        $query = "SELECT Segments.segment_name, SegmentTracker.title, PerformanceLevels.levels, DATE_FORMAT(Weeks.weekly_date, \"%M %d, %Y\"), SegmentTracker.id AS segment_track_id
         FROM SegmentTracker 
         JOIN People ON SegmentTracker.person_id = People.person_id JOIN Segments ON SegmentTracker.segment_id = Segments.segment_id JOIN PerformanceLevels ON SegmentTracker.performance_id = PerformanceLevels.performance_id JOIN Weeks ON SegmentTracker.week_id = Weeks.week_id 
         WHERE Person.name = ? ORDER BY Weeks.weekly_date;";
@@ -82,12 +82,12 @@ class Segments {
         return $stmt->fetchAll();
     }
 
-    public function addSegment($segment_id, $person_id, $week_id, $performance_id) {
-        $query = "INSERT INTO SegmentTracker (segment_id, person_id, week_id, performance_id) VALUES (:segment_id, :person_id, :week_id, :performance_id)";
+    public function addSegment($segment_id, $segment_title, $person_id, $week_id, $performance_id) {
+        $query = "INSERT INTO SegmentTracker (segment_id, title, person_id, week_id, performance_id) VALUES (:segment_id, :segment_title, :person_id, :week_id, :performance_id)";
 
         try {
             $stmt = $this->conn->prepare($query);
-            $stmt->execute(['segment_id' => $segment_id, 'person_id'=> $person_id, 'week_id' => $week_id, 'performance_id' => $performance_id]);
+            $stmt->execute(['segment_id' => $segment_id, 'segment_title'=>$segment_title, 'person_id'=> $person_id, 'week_id' => $week_id, 'performance_id' => $performance_id]);
         }
         catch (PDOException $e) {
             echo 'Exception occured. Error code: ' . $e->getCode(); 

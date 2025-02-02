@@ -119,6 +119,10 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                     <input type="text" id="Name" name="Name" placeholder="Name">
                 </p>
                 <p>
+                    <label for="title">Enter the Title of the segment </label>
+                    <input type="text" id="Name" name="Name" placeholder="Segment Title">
+                </p>
+                <p>
                     <label for="level">Performance Rating</label>
                     <select name="level" id="level">
                         <option value="1">Excellent</option>
@@ -161,11 +165,18 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                             <div class="segment">
                                 <div class="segment-details">
                                     <div class="title">
-                                        <p><strong> <?=htmlentities($segment['segment_name'])?> </strong></p>
+                                        <?php
+                                        if ($segment['title'] == NULL) {
+                                            echo "<p><strong>" . htmlentities($segment['segment_name']) . "</strong></p>";
+                                        } else {
+                                            echo "<p><strong>" . htmlentities($segment['title']) . "</strong></p>";
+                                            // echo "<p style=\"font-size: 1em; color: #18497e;\"><i>" . htmlentities($segment['title']) . "</i></p>";
+                                        }
+                                        ?>
                                         <span class="meeting"> <?=htmlentities($segment['meeting_title'])?> </span>
                                     </div>
-                                    <?=htmlentities($segment['person_name'])?> <br>
-                                    Duration: <?=htmlentities($segment['duration'])?> mins <br>
+                                    <p><?=htmlentities($segment['person_name'])?> </p>
+                                    <p>Duration: <?=htmlentities($segment['duration'])?> mins</p>
                                 </div>
                                 <div class="segment-extra">
                                     <p><?=htmlentities($segment['performance'])?></p>
@@ -184,12 +195,19 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                         <?php if ($segment['meeting_id'] > 2): ?>
                             <div class="segment">
                                 <div class="segment-details">
-                                    <div class="title">
-                                        <p><strong> <?=htmlentities($segment['segment_name'])?> </strong></p>
+                                <div class="title">
+                                        <?php
+                                        if ($segment['title'] == NULL) {
+                                            echo "<p><strong>" . htmlentities($segment['segment_name']) . "</strong></p>";
+                                        } else {
+                                            echo "<p><strong>" . htmlentities($segment['title']) . "</strong></p>";
+                                            // echo "<p style=\"font-size: 1em; color: #18497e;\"><i>" . htmlentities($segment['title']) . "</i></p>";
+                                        }
+                                        ?>
                                         <span class="meeting"> <?=htmlentities($segment['meeting_title'])?> </span>
                                     </div>
-                                    <?=htmlentities($segment['person_name'])?> <br>
-                                    Duration: <?=htmlentities($segment['duration'])?> mins <br>
+                                    <p><?=htmlentities($segment['person_name'])?> </p>
+                                    <p>Duration: <?=htmlentities($segment['duration'])?> mins</p>
                                 </div>
                                 <div class="segment-extra">
                                     <p><?=htmlentities($segment['performance'])?></p>

@@ -101,6 +101,7 @@ CREATE TABLE Segments (
 CREATE TABLE SegmentTracker (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     segment_id INT UNSIGNED,
+    title VARCHAR(256) DEFAULT NULL,
     person_id INT UNSIGNED,
     week_id INT UNSIGNED,
     status_id INT UNSIGNED,
