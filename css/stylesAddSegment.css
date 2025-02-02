@@ -11,22 +11,6 @@ h3 {
     margin: 20px auto;
 }
 
-.message {
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    text-align: center;
-}
-.message.error {
-    background-color: #ffe5e5;
-    color: #d8000c
-}
-
-.message.success {
-    background-color: #e5ffe6;
-    color: #0a9b00
-}
-
 .form-container, .segments-container {
     flex: 1;
     margin: 10px;

@@ -8,17 +8,6 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.message {
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    text-align: center;
-}
-.message.error {
-    background-color: #ffe5e5;
-    color: #d8000c;
-}
-
 .assignment {
     display: block;
     padding: 10px;

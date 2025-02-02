@@ -58,26 +58,6 @@ form input[type="submit"].delete:hover {
     background-color: #a41510;
 }
 
-.message {
-    padding: 10px 15px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    font-size: 14px;
-    text-align: center;
-}
-
-.message.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
-.message.success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
 #log-message {
     animation: fadeOut 3s ease-in-out forwards 3s;
 }
