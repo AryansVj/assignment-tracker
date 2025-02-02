@@ -1,0 +1,17 @@
+INSERT INTO segments (segment_name, duration, meeting_id) VALUES
+('Chair - Sunday', 15, 3),
+('Bible talk', 30, 1),
+('Watchtower study', 60, 2),
+('Watchtower reading', 60, 2),
+('Main chair - Mid week', 12, 7),
+('Secondary chair - Mid week', 12, 7),
+("Treasures from God\'s word", 10, 4),
+('Spiritual gems', 10, 4),
+('Bible reading', 4, 4),
+('Discussion (15)', 15, 6),
+('Discussion (10)', 10, 6),
+('Local needs (15)', 15, 6),
+('Local needs (5)', 5, 6),
+('Congregation bible study', 30, 6),
+('Congregation bible study reading', 30, 6),
+('Ending prayer', 5, 7);
