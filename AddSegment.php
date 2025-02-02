@@ -22,7 +22,7 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
             $_SESSION['error'] = 'Assignment addition failed. Person Name error!';
         }
         
-        if ( $segments->addSegment($_POST['segment'], $person_id, $_SESSION['week'], $_POST['level'] + 0) == 0 ) {
+        if ( $segments->addSegment($_POST['segment'], $_POST['title'], $person_id, $_SESSION['week'], $_POST['level'] + 0) == 0 ) {
             $_SESSION['success'] = 'Assignment for ' . $_POST['Name'] . ' was successfully added!';
             
             // Incrementing weekly count by refering to the db
@@ -100,18 +100,21 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                     <label for="segment">Segment</label>
                     <select name="segment" id="segment">
                         <option value="0">Select segment</option>
-                        <option value="1">Bible talk</option>
-                        <option value="2">Watchtower study</option>
-                        <option value="3">Chair - Sunday</option>
-                        <option value="4">Treasures from God's word</option>
-                        <option value="5">Spiritual gems</option>
-                        <option value="7">Discussion (15)</option>
-                        <option value="8">Discussion (10)</option>
-                        <option value="9">Local needs (15)</option>
-                        <option value="10">Local needs (5)</option>
-                        <option value="11">Congregation bible study</option>
-                        <option value="12">Main chair - Mid week</option>
-                        <option value="13">Secondary chair - Mid week</option>
+                        <option value="1">Chair - Sunday</option>
+                        <option value="2">Bible talk</option>
+                        <option value="3">Watchtower study</option>
+                        <option value="4">Watchtower reading</option>
+                        <option value="5">Main chair - Mid week</option>
+                        <option value="6">Secondary chair - Mid week</option>
+                        <option value="7">Treasures from God's word</option>
+                        <option value="8">Spiritual gems</option>
+                        <option value="10">Discussion (15)</option>
+                        <option value="11">Discussion (10)</option>
+                        <option value="12">Local needs (15)</option>
+                        <option value="13">Local needs (5)</option>
+                        <option value="14">Congregation bible study</option>
+                        <option value="15">Congregation bible study reading</option>
+                        <option value="16">Ending prayer</option>
                     </select>
                 </p>
                 <p>
@@ -119,8 +122,8 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                     <input type="text" id="Name" name="Name" placeholder="Name">
                 </p>
                 <p>
-                    <label for="title">Enter the Title of the segment </label>
-                    <input type="text" id="Name" name="Name" placeholder="Segment Title">
+                    <label for="title">Enter the Segment title </label>
+                    <input type="text" id="title" name="title" placeholder="Segment Title">
                 </p>
                 <p>
                     <label for="level">Performance Rating</label>
@@ -136,7 +139,7 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                 </p>
                 <div class="button-container">
                     <input type="submit" value="Add Assignment">
-                    <a href="SelectWeek.php" class="btn-link">Go Back</a>
+                    <a href="index.php" class="btn-link">Go Back</a>
                 </div>
             </form>
         </div>
@@ -149,19 +152,16 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
             <div class="week-details">
                 <?php 
                     $date = strtotime(htmlentities($_SESSION['date']));
-                    $weekly_count = $weeks->getCount($_SESSION['week']);
                 ?>
                 <p><?= date('F d', $date); ?></p>
                 <p><?= date('Y', $date); ?></p>
                 <a class="btn-link" href="SelectWeek.php">Change</a>
-                <p class="plabel">Segment Count</p>
-                <p><?= $weekly_count ?></p>
             </div>
             <div class="segment-section">
                 <h4>Sunday Meetings</h4>
                 <?php if (!$weekly_segments === false):?>
                     <?php foreach ($weekly_segments as $segment): ?>
-                        <?php if ($segment['meeting_id'] < 3): ?>
+                        <?php if ($segment['meeting_id'] <= 3): ?>
                             <div class="segment">
                                 <div class="segment-details">
                                     <div class="title">
@@ -192,7 +192,7 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                 <h4>Mid-Week Meetings</h4>
                 <?php if (!$weekly_segments === false):?>
                     <?php foreach ($weekly_segments as $segment): ?>
-                        <?php if ($segment['meeting_id'] > 2): ?>
+                        <?php if ($segment['meeting_id'] > 3): ?>
                             <div class="segment">
                                 <div class="segment-details">
                                 <div class="title">

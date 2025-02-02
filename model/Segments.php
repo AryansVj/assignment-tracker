@@ -115,12 +115,12 @@ class Segments {
         return 0;
     }
 
-    public function updateSegment($segment_track_id, $person_id, $segment_id, $performance_id) {
-        $query = "UPDATE SegmentTracker SET person_id = :person_id, segment_id = :segment_id, performance_id = :performance_id WHERE id = :segment_track_id";
+    public function updateSegment($segment_track_id, $segment_title, $person_id, $segment_id, $performance_id) {
+        $query = "UPDATE SegmentTracker SET person_id = :person_id,  title = :segment_title, segment_id = :segment_id, performance_id = :performance_id WHERE id = :segment_track_id";
 
         try {
             $stmt = $this->conn->prepare($query);
-            $stmt->execute(['person_id'=> $person_id, 'segment_id' => $segment_id, 'performance_id' => $performance_id, 'segment_track_id' => $segment_track_id]);
+            $stmt->execute(['person_id'=> $person_id, 'segment_title' => $segment_title, 'segment_id' => $segment_id, 'performance_id' => $performance_id, 'segment_track_id' => $segment_track_id]);
         }
         catch (PDOException $e) {
             echo 'Exception occured. Error code: ' . $e->getCode(); 

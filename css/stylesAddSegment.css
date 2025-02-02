@@ -84,11 +84,11 @@ input[type="submit"]:hover {
 
 .form-container {
     margin-right: 15px;
-    max-width: 35%;
+    max-width: 30%;
 }
 
 .segments-container {
-    max-width: 60%;
+    max-width: 65%;
 }
 
 div.week-details {
@@ -110,13 +110,6 @@ div.week-details {
     padding: 5px 10px;
     margin: 0;
     margin-left: 10px;
-}
-
-.week-details .plabel {
-    border: none;
-    margin-left: auto;
-    padding: 7px 10px 3px;
-    background-color: rgba(0, 0, 0, 0);
 }
 
 .segment-section h4 {

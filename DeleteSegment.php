@@ -94,22 +94,23 @@ if (isset($_POST['segment_track_id'])) {
         <?php unset($_SESSION['error']); endif; ?>
 
         <div class="assignment">
-            <div class="atitle"><p><strong><?= htmlentities($segment['person_name']) ?></strong></p>
-            <span class="acategory"><?= htmlentities($segment['segment_name']) ?></span>
-            <span class="adate"><?= htmlentities($segment['weekly_date']) ?></span></div>
+            <div class="atitle">
+                <p><strong><?= htmlentities($segment['person_name']) ?></strong></p>
+                <span class="acategory"><?= htmlentities($segment['segment_name']) ?></span>
+            </div>
+            <p>Title: <?= htmlentities($segment['title']) ?></p>
             <p>Performance: <?= htmlentities($segment['performance']) ?></p>
         </div>
 
         <form method="post">
-            <p>Do you want to delete this assignment from <?= htmlentities($segment['weekly_date']) ?>?</p>
+            <p>Do you want to delete this assignment from <span><?= htmlentities($segment['weekly_date']) ?></span>?</p>
             <input type="hidden" name="segment_track_id" value="<?= htmlentities($_GET['segment_track_id']) ?>">
             <input type="hidden" name="week_id" value="<?= htmlentities($_SESSION['week']) ?>">
-            <input type="submit" class="delete" value="Delete">
+            <div class="button-container">
+                <input type="submit" class="delete" value="Delete">
+                <a href=<?= $back_path ?> class="btn-link">Cancel</a>
+            </div>
         </form>
-
-        <div class="back-link">
-            <a href= <?= $back_path ?>>&larr; Go Back</a>
-        </div>
     </div>
 </body>
 </html>

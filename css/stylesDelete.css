@@ -74,22 +74,18 @@ form p {
     font-size: 1em;
     margin-bottom: 10px;
 }
+
+form p span {
+    background-color: #e4e4e4;
+    padding: 3px 5px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
 form input[type="submit"].delete {
     background-color: #e0241d;
 }
 
 form input[type="submit"].delete:hover {
     background-color: #a41510;
-}
-.back-link {
-    text-align: center;
-    margin-top: 20px;
-}
-.back-link a {
-    text-decoration: none;
-    color: #0275d8;
-    font-weight: bold;
-}
-.back-link a:hover {
-    color: #014c8c;
 }

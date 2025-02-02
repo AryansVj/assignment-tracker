@@ -23,6 +23,7 @@ if ( !isset($_GET['segment_track_id']) ) {
         $_SESSION['segment_track_id'] = $_GET['segment_track_id'];
 
         $pre_name = $segment['person_name'];
+        $pre_title = $segment['title'];
         $pre_segment = $segment['segment_id'];
         $pre_duration = $segment['duration'];
         $pre_performance = $segment['performance'];
@@ -42,7 +43,7 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
             $_SESSION['error'] = 'Segment addition failed. Person Name error!';
         }
 
-        if ( $segments->updateSegment($_SESSION['segment_track_id'], $person_id, $_POST['segment'], $_POST['level'] + 0) == 0) {
+        if ( $segments->updateSegment($_SESSION['segment_track_id'], $_POST['title'], $person_id, $_POST['segment'], $_POST['level'] + 0) == 0) {
             $_SESSION['success'] = 'Segment was successfully updated! (ID: '. $_SESSION['segment_track_id'] . ')';
             
         } else if ( !isset($_SESSION['error']) ) {
@@ -86,25 +87,33 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                 <label for="segment">Segment</label>
                 <select name="segment" id="segment">
                     <option value="0">Select segment</option>
-                    <option value="1" <?=$pre_segment == 1 ? "selected":""; ?>>Bible talk</option>
-                    <option value="2" <?=$pre_segment == 2 ? "selected":""; ?>>Watchtower study</option>
-                    <option value="3" <?=$pre_segment == 3 ? "selected":""; ?>>Chair - Sunday</option>
-                    <option value="4" <?=$pre_segment == 4 ? "selected":""; ?>>Treasures from God's word</option>
-                    <option value="5" <?=$pre_segment == 5 ? "selected":""; ?>>Spiritual gems</option>
-                    <!-- <option value="6" <?=$pre_segment == 6 ? "selected":""; ?>>Bible reading</option> -->
-                    <option value="7" <?=$pre_segment == 7 ? "selected":""; ?>>Discussion (15)</option>
-                    <option value="8" <?=$pre_segment == 8 ? "selected":""; ?>>Discussion (10)</option>
-                    <option value="9" <?=$pre_segment == 9 ? "selected":""; ?>>Local needs (15)</option>
-                    <option value="10" <?=$pre_segment == 10 ? "selected":""; ?>>Local needs (5)</option>
-                    <option value="11" <?=$pre_segment == 11 ? "selected":""; ?>>Congregation bible study</option>
-                    <option value="12" <?=$pre_segment == 12 ? "selected":""; ?>>Main chair - Mid week</option>
-                    <option value="13" <?=$pre_segment == 13 ? "selected":""; ?>>Secondary chair - Mid week</option>
+                    <option value="1" <?=$pre_segment == 1 ? "selected":""; ?>>Chair - Sunday</option>
+                    <option value="2" <?=$pre_segment == 2 ? "selected":""; ?>>Bible talk</option>
+                    <option value="3" <?=$pre_segment == 3 ? "selected":""; ?>>Watchtower study</option>
+                    <option value="4" <?=$pre_segment == 4 ? "selected":""; ?>>Watchtower reading</option>
+                    <option value="4" <?=$pre_segment == 4 ? "selected":""; ?>></option>
+                    <option value="5" <?=$pre_segment == 5 ? "selected":""; ?>>Main chair - Mid week</option>
+                    <option value="6" <?=$pre_segment == 6 ? "selected":""; ?>>Secondary chair - Mid week</option>
+                    <option value="7" <?=$pre_segment == 7 ? "selected":""; ?>>Treasures from God's word</option>
+                    <option value="8" <?=$pre_segment == 8 ? "selected":""; ?>>Spiritual gems</option>
+                    <option value="10" <?=$pre_segment == 10 ? "selected":""; ?>>Discussion (15)</option>
+                    <option value="11" <?=$pre_segment == 11 ? "selected":""; ?>>Discussion (10)</option>
+                    <option value="12" <?=$pre_segment == 12 ? "selected":""; ?>>Local needs (15)</option>
+                    <option value="13" <?=$pre_segment == 13 ? "selected":""; ?>>Local needs (5)</option>
+                    <option value="14" <?=$pre_segment == 14 ? "selected":""; ?>>Congregation bible study</option>
+                    <option value="15" <?=$pre_segment == 15 ? "selected":""; ?>>Congregation bible study reading</option>
+                    <option value="16" <?=$pre_segment == 16 ? "selected":""; ?>>Enging prayer</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="Name">Enter the Name</label>
                 <input type="text" id="Name" name="Name" value="<?= htmlentities($pre_name); ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="title">Enter the Segment title</label>
+                <input type="text" id="title" name="title" value="<?= htmlentities($pre_title); ?>">
             </div>
 
             <div class="form-group">
