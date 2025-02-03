@@ -5,6 +5,11 @@ require_once "model/Assignment.php";
 require_once "model/Segments.php";
 require_once "model/PeopleManager.php";
 
+// To set the mid week meeting day (0-sunday)
+if (!isset($_SESSION['dayof_midweek'])) {
+    $_SESSION['dayof_midweek'] = 4;
+}
+
 $_SESSION['source'] = 'Log';
 
 $db = new Database();
@@ -151,17 +156,23 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
             <?php
                 $grouped_assignments = [];
                 foreach ($assignment_list as $assignment) {
-                    $month = date('F Y', strtotime($assignment['week_date']));
+                    $assignment['week_date'] = strtotime($assignment['week_date']) - (7-$_SESSION['dayof_midweek'])*24*3600;
+                    $month = date('F Y', $assignment['week_date']);
                     $grouped_assignments[$month][] = $assignment;
                 }
                 foreach ($segment_list as $segment) {
-                    $month = date('F Y', strtotime($segment['week_date']));
+                    if ($segment['meeting_id'] > 3) {
+                        $segment['week_date'] = strtotime($segment['week_date']) - (7-$_SESSION['dayof_midweek'])*24*3600;
+                    } else {
+                        $segment['week_date'] = strtotime($segment['week_date']);
+                    }
+                    $month = date('F Y', $segment['week_date']);
                     $grouped_assignments[$month][] = $segment;
                 }
 
                 foreach ($grouped_assignments as $month => $assignments) {
                     usort($assignments, function ($a, $b) {
-                        return strtotime($a['week_date']) - strtotime($b['week_date']);
+                        return $a['week_date'] - $b['week_date'];
                     });
                     $grouped_assignments[$month] = $assignments; // Reassign after sorting
                 }                
@@ -173,8 +184,8 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
                             <?php if (isset($row['segment_track_id'])): ?>
                                 <div class="assignment-card segment-card">
                                     <div class="date-box">
-                                        <div class="month"><?= date('M', strtotime($row['week_date'])); ?></div>
-                                        <div class="day"><?= date('d', strtotime($row['week_date'])); ?></div>
+                                        <div class="month"><?= date('M', $row['week_date']); ?></div>
+                                        <div class="day"><?= date('d', $row['week_date']); ?></div>
                                     </div>
                                     <div class="details">
                                         <strong class="category"><?= htmlentities($row['segment_name']); ?></strong>
@@ -200,8 +211,8 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
                             <?php elseif (isset($row['assignment_id'])): ?>
                                 <div class="assignment-card">
                                     <div class="date-box">
-                                        <div class="month"><?= date('M', strtotime($row['week_date'])); ?></div>
-                                        <div class="day"><?= date('d', strtotime($row['week_date'])); ?></div>
+                                        <div class="month"><?= date('M', $row['week_date']); ?></div>
+                                        <div class="day"><?= date('d', $row['week_date']); ?></div>
                                     </div>
                                     <div class="details">
                                         <strong class="category"><?= htmlentities($row['category_title']); ?></strong><br>

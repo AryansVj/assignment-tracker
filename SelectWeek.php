@@ -3,8 +3,10 @@ session_start();
 require_once "model/database.php";
 require_once "model/Weeks.php";
 
-// To set the mid week meeting day
-$dayof_midweek = 4; 
+// To set the mid week meeting day (0-sunday)
+if (!isset($_SESSION['dayof_midweek'])) {
+    $_SESSION['dayof_midweek'] = 4;
+}
 
 if ( isset($_POST['WeeklyDate']) ) {
     // Check if the date is set and if it is a Sunday or a pre-set mid week day
@@ -18,7 +20,7 @@ if ( isset($_POST['WeeklyDate']) ) {
         
         $_SESSION['week'] = $week_id;
         $_SESSION['date'] = htmlentities($_POST['WeeklyDate']);
-        $_SESSION['mid-date'] = date("Y-m-d", strtotime(htmlentities($_POST['WeeklyDate'])) - (7-$dayof_midweek)*24*3600);
+        $_SESSION['mid-date'] = date("Y-m-d", strtotime(htmlentities($_POST['WeeklyDate'])) - (7-$_SESSION['dayof_midweek'])*24*3600);
 
         if ( isset($_POST['segments']) ) {
             header("Location: AddSegment.php");

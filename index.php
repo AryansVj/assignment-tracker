@@ -1,3 +1,8 @@
+<?php
+// To set the mid week meeting day (0-sunday)
+$_SESSION['dayof_midweek'] = 4;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
