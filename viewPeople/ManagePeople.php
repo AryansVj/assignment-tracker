@@ -147,11 +147,11 @@ if ( isset($_GET['search']) ) {
                         </select>
                     </p>
                     <p>
-                        <select name="search-group" id="search-group" required>
-                            <option value="0" selected>Group</option>
-                            <option value="1">Kundasale</option>
-                            <option value="2">Digana</option>
-                        </select>
+                    <select name="group" id="group" required>
+                        <?php foreach ($groups as $value => $name): ?>
+                            <option value="<?= $value ?>"><?= $name ?></option>
+                        <?php endforeach; ?>
+                    </select>
                     </p>
                     <p>
                         <select name="search-responsibility" id="search-responsibility">
