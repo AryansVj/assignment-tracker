@@ -96,11 +96,26 @@ if ( isset($_GET['search']) ) {
                 </p>
                 <p>
                     <label for="group">Group</label>
-                    <select name="group" id="group" required>
-                        <option value="0" selected>Select Group</option>
-                        <option value="1">Kundasale</option>
-                        <option value="2">Digana</option>
-                    </select>
+                    <?php
+                    $groups = [
+                        0 => "Select Group",
+                        1 => "Rikillagaskada",
+                        2 => "Kegalle",
+                        3 => "Nawalapitiya",
+                        4 => "Kundasale",
+                        5 => "Mulgampola",
+                        6 => "Ampitiya",
+                        7 => "Mahaiyawa",
+                        8 => "Panideniya",
+                        9 => "Katugasthota"
+                    ];
+                ?>
+
+                <select name="group" id="group" required>
+                    <?php foreach ($groups as $value => $name): ?>
+                        <option value="<?= $value ?>"><?= $name ?></option>
+                    <?php endforeach; ?>
+                </select>
                 </p>
                 <p>
                     <label for="responsibility">Responsibility</label><br>

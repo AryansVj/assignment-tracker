@@ -77,9 +77,27 @@ if ( isset($_POST['update']) && isset($_POST['person_id']) ) {
             </p>
             <p>
                 <label for="group">Group</label>
+                <?php
+                    $groups = [
+                        0 => "Select Group",
+                        1 => "Rikillagaskada",
+                        2 => "Kegalle",
+                        3 => "Nawalapitiya",
+                        4 => "Kundasale",
+                        5 => "Mulgampola",
+                        6 => "Ampitiya",
+                        7 => "Mahaiyawa",
+                        8 => "Panideniya",
+                        9 => "Katugasthota"
+                    ];
+                ?>
+
                 <select name="group" id="group" required>
-                    <option value="1" <?= $person['group_name'] == "Kundasale" ? "selected" : ""; ?>>Kundasale</option>
-                    <option value="2" <?= $person['group_name'] == "Digana" ? "selected" : ""; ?>>Digana</option>
+                    <?php foreach ($groups as $value => $name): ?>
+                        <option value="<?= $value ?>" <?= ($person['group_name'] == $name) ? "selected" : "" ?>>
+                            <?= $name ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
             </p>
             <p>
