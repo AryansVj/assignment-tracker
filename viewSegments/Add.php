@@ -1,11 +1,11 @@
 <?php
 session_start();
-require_once "model/database.php";
-require_once "model/Segments.php";
-require_once "model/PeopleManager.php";
-require_once "model/Weeks.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/database.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/Segments.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/PeopleManager.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/Weeks.php";
 
-$_SESSION['source'] = 'AddSegment';
+$_SESSION['source'] = '/viewSegments/Add';
 
 $db = new Database();
 $db->connectDB();
@@ -34,7 +34,7 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
         }
 
     }
-    header("Location: AddSegment.php");
+    header("Location: " . $_SESSION['source'] . ".php");
     return;
 }
 ?>
@@ -44,16 +44,16 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/stylesAddSegment.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/stylesAddSegment.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <title>Manage the segments</title>
 </head>
 <body>
     <div class="nav">
-        <a href="index.php"><div class="home"></div></a>
-        <a class="log" href="Log.php">Log</a>
-        <a class="people" href="ManagePerson.php">People</a>
-        <a class="weeks" href="SelectWeek.php">Weeks</a>
+        <a href="/index.php"><div class="home"></div></a>
+        <a class="log" href="/Log.php">Log</a>
+        <a class="people" href="/viewPeople/ManagePeople.php">People</a>
+        <a class="weeks" href="/SelectWeek.php">Weeks</a>
     </div>
     <h1>Segments Dashboard</h1>
 
@@ -139,7 +139,7 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                 </p>
                 <div class="button-container">
                     <input type="submit" value="Add Assignment">
-                    <a href="index.php" class="btn-link">Home</a>
+                    <a href="/index.php" class="btn-link">Home</a>
                 </div>
             </form>
         </div>
@@ -155,7 +155,7 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                 ?>
                 <p><?= date('F d', $date); ?></p>
                 <p><?= date('Y', $date); ?></p>
-                <a class="btn-link" href="SelectWeek.php">Change</a>
+                <a class="btn-link" href="/SelectWeek.php">Change</a>
             </div>
             <div class="segment-section">
                 <h4>Sunday Meetings</h4>
@@ -180,8 +180,8 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                                 </div>
                                 <div class="segment-extra">
                                     <p><?=htmlentities($segment['performance'])?></p>
-                                    <a href="EditSegment.php?segment_track_id=<?= htmlentities($segment['segment_track_id'])?>"><button class="edit">Edit</button></a> 
-                                    <a href="DeleteSegment.php?segment_track_id=<?=htmlentities($segment['segment_track_id'])?>"><button class="delete">Delete</button></a>
+                                    <a href="/viewSegments/Edit.php?segment_track_id=<?= htmlentities($segment['segment_track_id'])?>"><button class="edit">Edit</button></a> 
+                                    <a href="/viewSegments/Delete.php?segment_track_id=<?=htmlentities($segment['segment_track_id'])?>"><button class="delete">Delete</button></a>
                                 </div>
                             </div>
                         <?php endif;?>
@@ -211,8 +211,8 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                                 </div>
                                 <div class="segment-extra">
                                     <p><?=htmlentities($segment['performance'])?></p>
-                                    <a href="EditSegment.php?segment_track_id=<?= htmlentities($segment['segment_track_id'])?>"><button class="edit">Edit</button></a> 
-                                    <a href="DeleteSegment.php?segment_track_id=<?=htmlentities($segment['segment_track_id'])?>"><button class="delete">Delete</button></a>
+                                    <a href="/viewSegments/Edit.php?segment_track_id=<?= htmlentities($segment['segment_track_id'])?>"><button class="edit">Edit</button></a> 
+                                    <a href="/viewSegments/Delete.php?segment_track_id=<?=htmlentities($segment['segment_track_id'])?>"><button class="delete">Delete</button></a>
                                 </div>
                             </div>
                         <?php endif;?>

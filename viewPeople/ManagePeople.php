@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once "model/database.php";
-require_once "model/PeopleManager.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/database.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/PeopleManager.php";
 
 $db = new Database();
 $db->connectDB();
@@ -23,11 +23,11 @@ if ( isset($_POST['Add']) && isset($_POST['Name']) && ($_POST['role'] != 0) && (
     } else {
         $_SESSION['error'] = "Error: A record with name " . $_POST['Name'] . " already exists!";
     }
-    header("Location: ManagePerson.php");
+    header("Location: /viewPeople/ManagePeople.php");
     return;
 } elseif ( isset($_POST['Name']) ) {
     $_SESSION['error'] = "Error: One or more fields you entered are invalid!";
-    header("Location: ManagePerson.php");
+    header("Location: /viewPeople/ManagePeople.php");
     return;
 } 
 
@@ -50,16 +50,16 @@ if ( isset($_GET['search']) ) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/stylesManagePerson.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/stylesManagePerson.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <title>Add Person</title>
 </head>
 <body>
     <div class="nav">
-        <a href="index.php"><div class="home"></div></a>
-        <a class="log" href="Log.php">Log</a>
-        <a class="people" href="ManagePerson.php">People</a>
-        <a class="weeks" href="SelectWeek.php">Weeks</a>
+        <a href="/index.php"><div class="home"></div></a>
+        <a class="log" href="/Log.php">Log</a>
+        <a class="people" href="/viewPeople/ManagePeople.php">People</a>
+        <a class="weeks" href="/SelectWeek.php">Weeks</a>
     </div>
     <h1>Manage People</h1>
     <div class="container">
@@ -110,7 +110,7 @@ if ( isset($_GET['search']) ) {
                 </p>
                 <div class="button-container">
                     <input class="add" type="submit" name="Add" value="Add Person">
-                    <a href="index.php" class="btn-link">Home</a>
+                    <a href="/index.php" class="btn-link">Home</a>
                 </div>
             </form>
         </div>
@@ -146,7 +146,7 @@ if ( isset($_GET['search']) ) {
                             <option value="3">Elder</option>
                         </select>
                     </p>
-                    <a href="ManagePerson.php" class="btn-link">Clear</a>
+                    <a href="/viewPeople/ManagePeople.php" class="btn-link">Clear</a>
                     <input class="search" type="submit" name="search" value="Search">
                 </div>    
             </form>
@@ -163,8 +163,8 @@ if ( isset($_GET['search']) ) {
                                 <p class="resp"><?= $row['responsibility']?></p>
                             <?php endif;?>
                             <div class="edit">
-                                <?php $view_path = str_replace(' ', '+', "Log.php?Name=" . $row['name']); ?>
-                                <?php $edit_path = str_replace(' ', '+', "EditPerson.php?Name=" . $row['name']); ?>
+                                <?php $view_path = str_replace(' ', '+', "/Log.php?Name=" . $row['name']); ?>
+                                <?php $edit_path = str_replace(' ', '+', "/viewPeople/EditPerson.php?Name=" . $row['name']); ?>
                                 <a href=<?= $view_path ?>><button>Log</button></a>
                                 <a href=<?= $edit_path ?>><button>Edit</button></a>
                             </div>

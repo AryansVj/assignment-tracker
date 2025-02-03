@@ -95,10 +95,10 @@ $_SESSION['dayof_midweek'] = 4;
 </head>
 <body>
     <div class="nav">
-        <a href="index.php"><div class="home"></div></a>
-        <a class="log" href="Log.php">Log</a>
-        <a class="people" href="ManagePerson.php">People</a>
-        <a class="weeks" href="SelectWeek.php">Weeks</a>
+        <a href="/index.php"><div class="home"></div></a>
+        <a class="log" href="/Log.php">Log</a>
+        <a class="people" href="/viewPeople/ManagePeople.php">People</a>
+        <a class="weeks" href="/SelectWeek.php">Weeks</a>
     </div>
     <div class="container">
         <h1 class="main">Welcome to the JW Assignment Tracker!</h1>
@@ -110,7 +110,7 @@ $_SESSION['dayof_midweek'] = 4;
             <a href="Log.php">
                 <button type="button">Assignment Log</button>
             </a>
-            <a href="ManagePerson.php">
+            <a href="/viewPeople/ManagePeople.php">
                 <button type="button">Manage People</button>
             </a>
         </div>

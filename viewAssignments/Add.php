@@ -1,11 +1,12 @@
 <?php
 session_start();
-require_once "model/database.php";
-require_once "model/Assignment.php";
-require_once "model/PeopleManager.php";
-require_once "model/Weeks.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/database.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/Assignment.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/PeopleManager.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/Weeks.php";
 
-$_SESSION['source'] = 'Add';
+//Current source file path
+$_SESSION['source'] = '/viewAssignments/Add';
 
 $db = new Database();
 $db->connectDB();
@@ -14,6 +15,7 @@ $assignments = new Assignment($db->pdo);
 $people = new People($db->pdo);
 $weeks = new Weeks($db->pdo);
 
+// If the Name of the person and the assignment category is properly set, add the assignment
 if ( isset($_POST['Name']) && isset($_POST['category']) ) {
     if ( (strlen($_POST['Name']) > 0) && (strlen($_POST['category']) > 0) ) {
 
@@ -36,7 +38,7 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
         }
 
     }
-    header("Location: Add.php");
+    header("Location: /viewAssignments/Add.php");
     return;
 }
 ?>
@@ -46,16 +48,16 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/stylesAdd.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/stylesAdd.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <title>Add Assignment</title>
 </head>
 <body>
     <div class="nav">
-        <a href="index.php"><div class="home"></div></a>
-        <a class="log" href="Log.php">Log</a>
-        <a class="people" href="ManagePerson.php">People</a>
-        <a class="weeks" href="SelectWeek.php">Weeks</a>
+        <a href="/index.php"><div class="home"></div></a>
+        <a class="log" href="/Log.php">Log</a>
+        <a class="people" href="/viewPeople/ManagePeople.php">People</a>
+        <a class="weeks" href="/SelectWeek.php">Weeks</a>
     </div>
     <h1>Weekly Dashboard</h1>
 
@@ -142,7 +144,7 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
                 </p>
                 <div class="button-container">
                     <input type="submit" value="Add Assignment">
-                    <a href="index.php" class="btn-link">Home</a>
+                    <a href="/index.php" class="btn-link">Home</a>
                 </div>
             </form>
         </div>
@@ -159,7 +161,7 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
                 ?>
                 <p><?= date('F d', $date); ?></p>
                 <p><?= date('Y', $date); ?></p>
-                <a class="btn-link" href="SelectWeek.php">Change</a>
+                <a class="btn-link" href="/SelectWeek.php">Change</a>
                 <p class="plabel">Assignment Count</p>
                 <p><?= $weekly_count ?></p>
             </div>
@@ -175,7 +177,7 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
                             echo 'Assistant: ' . htmlentities($assignment['assistant_name']) . '<br>';
                             echo 'Status: ' . htmlentities($assignment['status_descriptor']) . '<br>';
                             echo 'Performance: ' . htmlentities($assignment['levels']) . '<br>';
-                            echo '<a href="Edit.php?assignment_id=' . htmlentities($assignment['assignment_id']) . '"><button class="aedit">Edit</button></a> <a href="Delete.php?assignment_id='  . htmlentities($assignment['assignment_id']) . '"><button class="adelete">Delete</button></a>';
+                            echo '<a href="/viewAssignments/Edit.php?assignment_id=' . htmlentities($assignment['assignment_id']) . '"><button class="aedit">Edit</button></a> <a href="/viewAssignments/Delete.php?assignment_id='  . htmlentities($assignment['assignment_id']) . '"><button class="adelete">Delete</button></a>';
                             echo '</div>';
                         }
                     }
@@ -194,7 +196,7 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
                             echo 'Assistant: ' . htmlentities($assignment['assistant_name']) . '<br>';
                             echo 'Status: ' . htmlentities($assignment['status_descriptor']) . '<br>';
                             echo 'Performance: ' . htmlentities($assignment['levels']) . '<br>';
-                            echo '<a href="Edit.php?assignment_id=' . htmlentities($assignment['assignment_id']) . '"><button class="aedit">Edit</button></a> <a href="Delete.php?assignment_id=' . htmlentities($assignment['assignment_id']) . '"><button class="adelete">Delete</button></a>';
+                            echo '<a href="/viewAssignments/Edit.php?assignment_id=' . htmlentities($assignment['assignment_id']) . '"><button class="aedit">Edit</button></a> <a href="/viewAssignments/Delete.php?assignment_id=' . htmlentities($assignment['assignment_id']) . '"><button class="adelete">Delete</button></a>';
                             echo '</div>';
                         }
                     }

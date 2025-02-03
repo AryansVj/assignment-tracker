@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once "model/database.php";
-require_once "model/Weeks.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/database.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/Weeks.php";
 
 // To set the mid week meeting day (0-sunday)
 if (!isset($_SESSION['dayof_midweek'])) {
@@ -23,9 +23,9 @@ if ( isset($_POST['WeeklyDate']) ) {
         $_SESSION['mid-date'] = date("Y-m-d", strtotime(htmlentities($_POST['WeeklyDate'])) - (7-$_SESSION['dayof_midweek'])*24*3600);
 
         if ( isset($_POST['segments']) ) {
-            header("Location: AddSegment.php");
+            header("Location: /viewSegments/Add.php");
         } else if ( isset($_POST['assignments']) ) {
-            header("Location: Add.php");
+            header("Location: /viewAssignments/Add.php");
         }
         return;
     } else {
@@ -48,10 +48,10 @@ session_destroy();
 </head>
 <body>
     <div class="nav">
-        <a href="index.php"><div class="home"></div></a>
-        <a class="log" href="Log.php">Log</a>
-        <a class="people" href="ManagePerson.php">People</a>
-        <a class="weeks" href="SelectWeek.php">Weeks</a>
+        <a href="/index.php"><div class="home"></div></a>
+        <a class="log" href="/Log.php">Log</a>
+        <a class="people" href="/viewPeople/ManagePeople.php">People</a>
+        <a class="weeks" href="/SelectWeek.php">Weeks</a>
     </div>
     <div class="container">
 

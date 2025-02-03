@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once "model/database.php";
-require_once "model/Assignment.php";
-require_once "model/PeopleManager.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/database.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/Assignment.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/PeopleManager.php";
 
 $db = new Database();
 $db->connectDB();
@@ -32,7 +32,7 @@ if ( !isset($_GET['assignment_id']) ) {
     }
 }
 
-if ($_SESSION['source'] == 'Log') {
+if ($_SESSION['source'] == '/Log') {
     $back_path .= "?Name=" . urlencode($assignment['person_name']);
 }
 
@@ -42,11 +42,7 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
         if ($person_id == -1) {
             $_SESSION['error'] = 'Assignment addition failed. Person Name error!';
         }
-        if ($_POST['assistant'] === "None") {
-            $assistant_id = 5;
-        } else {
-            $assistant_id = $people->getPersonID($_POST['assistant']);
-        }
+        $assistant_id = $people->getPersonID($_POST['assistant']);
 
         if ( $assignments->updateAssignment($_SESSION['assignment_id'], $person_id, $_POST['category'], $assistant_id, $_POST['status'] + 0, $_POST['level'] + 0, $_POST['hall'] + 0) == 0) {
             $_SESSION['success'] = 'Assignment was successfully updated! (ID: '. $_SESSION['assignment_id'] . ')';
@@ -69,16 +65,16 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/stylesEdit.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/stylesEdit.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <title>Edit Assignment</title>
 </head>
 <body>
     <div class="nav">
-        <a href="index.php"><div class="home"></div></a>
-        <a class="log" href="Log.php">Log</a>
-        <a class="people" href="ManagePerson.php">People</a>
-        <a class="weeks" href="SelectWeek.php">Weeks</a>
+        <a href="/index.php"><div class="home"></div></a>
+        <a class="log" href="/Log.php">Log</a>
+        <a class="people" href="/viewPeople/ManagePeople.php">People</a>
+        <a class="weeks" href="/SelectWeek.php">Weeks</a>
     </div>
     <h1>Edit the Assignment</h1>
     <div class="container">

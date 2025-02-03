@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once "model/database.php";
-require_once "model/Segments.php";
-require_once "model/Weeks.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/database.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/Segments.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/Weeks.php";
 
 $db = new Database();
 $db->connectDB();
@@ -50,7 +50,7 @@ if (isset($_POST['segment_track_id'])) {
     } else if ($res == -1) {
         $_SESSION['error'] = 'Assignment delete failed! (ID: '. $_POST['segment_track_id'] . ')';
 
-        header("Location: DeleteSegment.php?segment_track_id=" . htmlentities($_POST['segment_track_id']));
+        header("Location: /viewSegments/Delete.php?segment_track_id=" . htmlentities($_POST['segment_track_id']));
         return;
     }
 }
@@ -62,16 +62,16 @@ if (isset($_POST['segment_track_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/stylesDelete.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/stylesDelete.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <title>Delete Assignment</title>
 </head>
 <body>
     <div class="nav">
-        <a href="index.php"><div class="home"></div></a>
-        <a class="log" href="Log.php">Log</a>
-        <a class="people" href="ManagePerson.php">People</a>
-        <a class="weeks" href="SelectWeek.php">Weeks</a>
+        <a href="/index.php"><div class="home"></div></a>
+        <a class="log" href="/Log.php">Log</a>
+        <a class="people" href="/viewPeople/ManagePeople.php">People</a>
+        <a class="weeks" href="/SelectWeek.php">Weeks</a>
     </div>
     <div class="container">
         <h1>Delete Assignment</h1>

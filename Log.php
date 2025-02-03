@@ -1,16 +1,16 @@
 <?php
 session_start();
-require_once "model/database.php";
-require_once "model/Assignment.php";
-require_once "model/Segments.php";
-require_once "model/PeopleManager.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/database.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/Assignment.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/Segments.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/PeopleManager.php";
 
 // To set the mid week meeting day (0-sunday)
 if (!isset($_SESSION['dayof_midweek'])) {
     $_SESSION['dayof_midweek'] = 4;
 }
 
-$_SESSION['source'] = 'Log';
+$_SESSION['source'] = '/Log';
 
 $db = new Database();
 $db->connectDB();
@@ -88,10 +88,10 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
 </head>
 <body>
     <div class="nav">
-        <a href="index.php"><div class="home"></div></a>
-        <a class="log" href="Log.php">Log</a>
-        <a class="people" href="ManagePerson.php">People</a>
-        <a class="weeks" href="SelectWeek.php">Weeks</a>
+        <a href="/index.php"><div class="home"></div></a>
+        <a class="log" href="/Log.php">Log</a>
+        <a class="people" href="/viewPeople/ManagePeople.php">People</a>
+        <a class="weeks" href="/SelectWeek.php">Weeks</a>
     </div>
     <h1>Search for Assignment Log</h1>
     <form method="get">
@@ -104,7 +104,7 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
         </div>
         <div class="button-container">
             <input type="submit" name="search" value="Search">
-            <a href="Log.php" class="btn-link">Clear</a>
+            <a href="/Log.php" class="btn-link">Clear</a>
         </div>
     </form>
     
@@ -203,8 +203,8 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
                                         <strong>Rating:</strong> <?= htmlentities($row['levels']); ?>
                                     </div>
                                     <div class="edit">
-                                    <a href= <?= "EditSegment.php?segment_track_id=" . htmlentities($row['segment_track_id']) ?>><button class="aedit">Edit</button></a>
-                                    <a href= <?= "DeleteSegment.php?segment_track_id=" . htmlentities($row['segment_track_id']) ?>><button class="adelete">Delete</button></a>
+                                    <a href= <?= "/viewSegments/Edit.php?segment_track_id=" . htmlentities($row['segment_track_id']) ?>><button class="aedit">Edit</button></a>
+                                    <a href= <?= "/viewSegments/Delete.php?segment_track_id=" . htmlentities($row['segment_track_id']) ?>><button class="adelete">Delete</button></a>
                                     </div>
                                 </div>
                                 
@@ -231,8 +231,8 @@ if ( isset($_GET['Name']) && (strlen($_GET['Name']) > 0)) {
                                         <strong>Rating:</strong> <?= htmlentities($row['levels']); ?>
                                     </div>
                                     <div class="edit">
-                                    <a href= <?= "Edit.php?assignment_id=" . htmlentities($row['assignment_id']) ?>><button class="aedit">Edit</button></a>
-                                    <a href= <?= "Delete.php?assignment_id=" . htmlentities($row['assignment_id']) ?>><button class="adelete">Delete</button></a>
+                                    <a href= <?= "/viewAssignments/Edit.php?assignment_id=" . htmlentities($row['assignment_id']) ?>><button class="aedit">Edit</button></a>
+                                    <a href= <?= "/viewAssignments/Delete.php?assignment_id=" . htmlentities($row['assignment_id']) ?>><button class="adelete">Delete</button></a>
                                     </div>
                                 </div>
                             <?php endif; ?>

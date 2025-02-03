@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once "model/database.php";
-require_once "model/PeopleManager.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/database.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/PeopleManager.php";
 
 $db = new Database();
 $db->connectDB();
@@ -24,7 +24,7 @@ if ( isset($_POST['delete']) && isset($_POST['Name']) ) {
     } else {
         $_SESSION['error'] = "Error: A record with name " . $_POST['Name'] . " does not exists!";
     }
-    header("Location: ManagePerson.php");
+    header("Location: /viewPeople/ManagePeople.php");
     return;
 }
 
@@ -35,7 +35,7 @@ if ( isset($_POST['update']) && isset($_POST['person_id']) ) {
     } elseif ($res == 0) {
         $_SESSION['success'] = "Record update successful";
     }
-    header("Location: ManagePerson.php");
+    header("Location: /viewPeople/ManagePeople.php");
     return;
 }
 
@@ -47,15 +47,15 @@ if ( isset($_POST['update']) && isset($_POST['person_id']) ) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/stylesManagePerson.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/stylesManagePerson.css">
 </head>
 <body>
     <div class="nav">
-        <a href="index.php"><div class="home"></div></a>
-        <a class="log" href="Log.php">Log</a>
-        <a class="people" href="ManagePerson.php">People</a>
-        <a class="weeks" href="SelectWeek.php">Weeks</a>
+        <a href="/index.php"><div class="home"></div></a>
+        <a class="log" href="/Log.php">Log</a>
+        <a class="people" href="/viewPeople/ManagePeople.php">People</a>
+        <a class="weeks" href="/SelectWeek.php">Weeks</a>
     </div>
     <h1>Edit or Delete a person record</h1>
     <div class="form-container">
@@ -94,7 +94,7 @@ if ( isset($_POST['update']) && isset($_POST['person_id']) ) {
             <div class="button-container">
                 <input class="update" type="submit" name="update" value="Update">
                 <input class="delete" type="submit" name="delete" value="Delete">
-                <a href="ManagePerson.php" class="btn-link">Cancel</a>
+                <a href="/viewPeople/ManagePeople.php" class="btn-link">Cancel</a>
             </div>
         </form>
     </div>

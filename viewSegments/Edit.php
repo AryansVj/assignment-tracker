@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once "model/database.php";
-require_once "model/Segments.php";
-require_once "model/PeopleManager.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/database.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/Segments.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/PeopleManager.php";
 
 $db = new Database();
 $db->connectDB();
@@ -64,16 +64,16 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/stylesEdit.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/stylesEdit.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <title>Edit Segment</title>
 </head>
 <body>
     <div class="nav">
-        <a href="index.php"><div class="home"></div></a>
-        <a class="log" href="Log.php">Log</a>
-        <a class="people" href="ManagePerson.php">People</a>
-        <a class="weeks" href="SelectWeek.php">Weeks</a>
+        <a href="/index.php"><div class="home"></div></a>
+        <a class="log" href="/Log.php">Log</a>
+        <a class="people" href="/viewPeople/ManagePeople.php">People</a>
+        <a class="weeks" href="/SelectWeek.php">Weeks</a>
     </div>
     <h1>Edit the Assigned Segment</h1>
     <div class="container">
