@@ -91,11 +91,18 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
 
             <div class="form-group">
                 <label for="category">Assignment</label>
-                <select name="category" id="category">
-                    <option value="0" <?= $pre_category == "Select Category" ? "selected" : ""; ?>>Select Category</option>
+                <select name="category" id="category" required>
+                    <option value="0" selected>Select Category</option>
                     <option value="1" <?= $pre_category == "Bible Reading" ? "selected" : ""; ?>>Bible Reading</option>
-                    <option value="2" <?= $pre_category == "Talk" ? "selected" : ""; ?>>Talk</option>
-                    <option value="3" <?= $pre_category == "Start Conversation (1)" ? "selected" : ""; ?>>Start Conversation (1)</option>
+                    <option value="2" <?= $pre_category == "Start Conv (1)" ? "selected" : ""; ?>>Start Conv (1)</option>
+                    <option value="3" <?= $pre_category == "Start Conv (2)" ? "selected" : ""; ?>>Start Conv (2)</option>
+                    <option value="4" <?= $pre_category == "Start Conv (3)" ? "selected" : ""; ?>>Start Conv (3)</option>
+                    <option value="5" <?= $pre_category == "Start Conv (4)" ? "selected" : ""; ?>>Start Conv (4)</option>
+                    <option value="6" <?= $pre_category == "Follow up (3)" ? "selected" : ""; ?>>Follow up (3)</option>
+                    <option value="7" <?= $pre_category == "Follow up (4)" ? "selected" : ""; ?>>Follow up (4)</option>
+                    <option value="8" <?= $pre_category == "Making Disciple" ? "selected" : ""; ?>>Making Disciple</option>
+                    <option value="9" <?= $pre_category == "Explain your belief" ? "selected" : ""; ?>>Explain your belief</option>
+                    <option value="10" <?= $pre_category == "Talk" ? "selected" : ""; ?>>Talk</option>
                 </select>
             </div>
 

@@ -106,12 +106,20 @@ if ( isset($_POST['Name']) && isset($_POST['category']) ) {
                 </p>
                 <p>
                     <label for="category">Assignment</label>
-                    <select name="category" id="category">
-                        <option value="0">Select Category</option>
-                        <option value="1">Bible Reading</option>
-                        <option value="2">Talk</option>
-                        <option value="3">Start Conversation (1)</option>
+                    <select name="category" id="category" required>
+                        <option value="0" selected>Select Category</option>
+                        <option value="1"?>Bible Reading</option>
+                        <option value="2">Start Conv (1)</option>
+                        <option value="3">Start Conv (2)</option>
+                        <option value="4">Start Conv (3)</option>
+                        <option value="5">Start Conv (4)</option>
+                        <option value="6">Follow up (3)</option>
+                        <option value="7">Follow up (4)</option>
+                        <option value="8">Making Disciple</option>
+                        <option value="9">Explain your belief</option>
+                        <option value="10">Talk</option>
                     </select>
+
                 </p>
                 <p>
                     <label for="assistant">Assistant Name</label>
