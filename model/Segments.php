@@ -44,6 +44,26 @@ class Segments {
         $row = $stmt->fetch();
         return $row;
     }
+    
+    public function selectSegment($week_id, $segment_id) {
+        $query = "SELECT People.name AS person_name, Segments.segment_name, Segments.duration, SegmentTracker.title, Meetings.title AS meeting_title, Meetings.meeting_id, PerformanceLevels.levels AS performance
+        FROM SegmentTracker
+        JOIN People ON SegmentTracker.person_id = People.person_id JOIN Segments ON SegmentTracker.segment_id = Segments.segment_id JOIN Meetings ON Segments.meeting_id = Meetings.meeting_id JOIN PerformanceLevels ON SegmentTracker.performance_id = PerformanceLevels.performance_id JOIN Weeks ON SegmentTracker.week_id = Weeks.week_id 
+        WHERE Weeks.week_id = :week_id AND Segments.segment_id = :segment_id";
+
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute(['week_id' => $week_id, 'segment_id' => $segment_id]);
+        }
+        catch (PDOException $e) {
+            echo 'Exception occured. Error code: ' . $e->getCode(); 
+            echo '<br>Error Message: ' . $e->getMessage();
+        }
+
+        $row = $stmt->fetch();
+        return $row;
+    }
+    
 
     public function getBoundByDate($start_date, $end_date) {
         $query = "SELECT People.name AS person_name, Segments.segment_name, Segments.meeting_id, SegmentTracker.title, PerformanceLevels.levels, DATE_FORMAT(Weeks.weekly_date, \"%M %d, %Y\") AS week_date, SegmentTracker.id AS segment_track_id
