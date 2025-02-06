@@ -23,10 +23,10 @@ class Assignment {
     }
 
     public function getWeek($date) {
-        $query = "SELECT Person.name AS person_name, AssignmentCategories.category_title, Assistant.name AS assistant_name, Status.status_descriptor, PerformanceLevels.levels, WeeklyTracker.hall, WeeklyTracker.assignment_id
+        $query = "SELECT Person.name AS person_name, AssignmentCategories.category_title, AssignmentCategories.duration, Assistant.name AS assistant_name, Status.status_descriptor, PerformanceLevels.levels, WeeklyTracker.hall, WeeklyTracker.assignment_id
         FROM WeeklyTracker 
         JOIN People AS Person ON WeeklyTracker.person_id = Person.person_id JOIN AssignmentCategories ON WeeklyTracker.category_id = AssignmentCategories.category_id JOIN People AS Assistant ON WeeklyTracker.assistant_id = Assistant.person_id JOIN Status ON WeeklyTracker.status_id = Status.status_id JOIN PerformanceLevels ON WeeklyTracker.performance_id = PerformanceLevels.performance_id JOIN Weeks ON WeeklyTracker.week_id = Weeks.week_id 
-        WHERE Weeks.weekly_date = CAST(? AS DATE) ORDER BY Person.name;";
+        WHERE Weeks.weekly_date = CAST(? AS DATE) ORDER BY AssignmentCategories.category_id;";
 
         try {
             $stmt = $this->conn->prepare($query);
@@ -41,7 +41,7 @@ class Assignment {
     }
 
     public function getMonth($year, $month) {
-        $query = "SELECT Person.name AS person_name, AssignmentCategories.category_title, Assistant.name AS assistant_name, Status.status_descriptor, PerformanceLevels.levels, WeeklyTracker.hall, Weeks.weekly_date, WeeklyTracker.assignment_id
+        $query = "SELECT Person.name AS person_name, AssignmentCategories.category_title, AssignmentCategories.duration, Assistant.name AS assistant_name, Status.status_descriptor, PerformanceLevels.levels, WeeklyTracker.hall, Weeks.weekly_date, WeeklyTracker.assignment_id
         FROM WeeklyTracker 
         JOIN People AS Person ON WeeklyTracker.person_id = Person.person_id JOIN AssignmentCategories ON WeeklyTracker.category_id = AssignmentCategories.category_id JOIN People AS Assistant ON WeeklyTracker.assistant_id = Assistant.person_id JOIN Status ON WeeklyTracker.status_id = Status.status_id JOIN PerformanceLevels ON WeeklyTracker.performance_id = PerformanceLevels.performance_id JOIN Weeks ON WeeklyTracker.week_id = Weeks.week_id 
         WHERE YEAR(Weeks.weekly_date) = ? AND MONTH(Weeks.weekly_date) = ? ORDER BY Weeks.weekly_date;";
@@ -59,7 +59,7 @@ class Assignment {
     }
 
     public function getBoundByDate($start_date, $end_date) {
-        $query = "SELECT Person.name AS person_name, AssignmentCategories.category_title, Assistant.name AS assistant_name, Status.status_descriptor, PerformanceLevels.levels, WeeklyTracker.hall, DATE_FORMAT(Weeks.weekly_date, \"%M %d, %Y\") AS week_date, WeeklyTracker.assignment_id
+        $query = "SELECT Person.name AS person_name, AssignmentCategories.category_title, AssignmentCategories.duration, Assistant.name AS assistant_name, Status.status_descriptor, PerformanceLevels.levels, WeeklyTracker.hall, DATE_FORMAT(Weeks.weekly_date, \"%M %d, %Y\") AS week_date, WeeklyTracker.assignment_id
         FROM WeeklyTracker 
         JOIN People AS Person ON WeeklyTracker.person_id = Person.person_id JOIN AssignmentCategories ON WeeklyTracker.category_id = AssignmentCategories.category_id JOIN People AS Assistant ON WeeklyTracker.assistant_id = Assistant.person_id JOIN Status ON WeeklyTracker.status_id = Status.status_id JOIN PerformanceLevels ON WeeklyTracker.performance_id = PerformanceLevels.performance_id JOIN Weeks ON WeeklyTracker.week_id = Weeks.week_id 
         WHERE Weeks.weekly_date BETWEEN DATE(:start_date) AND DATE(:end_date) ORDER BY Weeks.weekly_date;";
@@ -77,7 +77,7 @@ class Assignment {
     }
 
     public function getBoundByDatePerson($start_date, $end_date, $person_name) {
-        $query = "SELECT Person.name AS person_name, AssignmentCategories.category_title, Assistant.name AS assistant_name, Status.status_descriptor, PerformanceLevels.levels, WeeklyTracker.hall, DATE_FORMAT(Weeks.weekly_date, \"%M %d, %Y\") AS week_date, WeeklyTracker.assignment_id
+        $query = "SELECT Person.name AS person_name, AssignmentCategories.category_title, AssignmentCategories.duration, Assistant.name AS assistant_name, Status.status_descriptor, PerformanceLevels.levels, WeeklyTracker.hall, DATE_FORMAT(Weeks.weekly_date, \"%M %d, %Y\") AS week_date, WeeklyTracker.assignment_id
         FROM WeeklyTracker 
         JOIN People AS Person ON WeeklyTracker.person_id = Person.person_id JOIN AssignmentCategories ON WeeklyTracker.category_id = AssignmentCategories.category_id JOIN People AS Assistant ON WeeklyTracker.assistant_id = Assistant.person_id JOIN Status ON WeeklyTracker.status_id = Status.status_id JOIN PerformanceLevels ON WeeklyTracker.performance_id = PerformanceLevels.performance_id JOIN Weeks ON WeeklyTracker.week_id = Weeks.week_id 
         WHERE Person.name = :person_name AND Weeks.weekly_date BETWEEN DATE(:start_date) AND DATE(:end_date) ORDER BY Weeks.weekly_date;";
@@ -95,7 +95,7 @@ class Assignment {
     }
 
     public function getByIndividual($person_name) {
-        $query = "SELECT AssignmentCategories.category_title, Assistant.name AS assistant_name, Status.status_descriptor, PerformanceLevels.levels, WeeklyTracker.hall, DATE_FORMAT(Weeks.weekly_date, \"%M %d, %Y\") AS week_date, WeeklyTracker.assignment_id
+        $query = "SELECT AssignmentCategories.category_title, AssignmentCategories.duration, Assistant.name AS assistant_name, Status.status_descriptor, PerformanceLevels.levels, WeeklyTracker.hall, DATE_FORMAT(Weeks.weekly_date, \"%M %d, %Y\") AS week_date, WeeklyTracker.assignment_id
         FROM WeeklyTracker 
         JOIN People AS Person ON WeeklyTracker.person_id = Person.person_id JOIN AssignmentCategories ON WeeklyTracker.category_id = AssignmentCategories.category_id JOIN People AS Assistant ON WeeklyTracker.assistant_id = Assistant.person_id JOIN Status ON WeeklyTracker.status_id = Status.status_id JOIN PerformanceLevels ON WeeklyTracker.performance_id = PerformanceLevels.performance_id JOIN Weeks ON WeeklyTracker.week_id = Weeks.week_id 
         WHERE Person.name = ? ORDER BY Weeks.weekly_date;";
@@ -114,7 +114,7 @@ class Assignment {
     }
 
     public function getAssignment($assignment_id) {
-        $query = "SELECT Person.name AS person_name, AssignmentCategories.category_title, Assistant.name AS assistant_name, Status.status_descriptor, PerformanceLevels.levels, WeeklyTracker.hall, Weeks.weekly_date
+        $query = "SELECT Person.name AS person_name, AssignmentCategories.category_title, AssignmentCategories.duration, Assistant.name AS assistant_name, Status.status_descriptor, PerformanceLevels.levels, WeeklyTracker.hall, Weeks.weekly_date
         FROM WeeklyTracker 
         JOIN People AS Person ON WeeklyTracker.person_id = Person.person_id JOIN AssignmentCategories ON WeeklyTracker.category_id = AssignmentCategories.category_id JOIN People AS Assistant ON WeeklyTracker.assistant_id = Assistant.person_id JOIN Status ON WeeklyTracker.status_id = Status.status_id JOIN PerformanceLevels ON WeeklyTracker.performance_id = PerformanceLevels.performance_id JOIN Weeks ON WeeklyTracker.week_id = Weeks.week_id 
         WHERE WeeklyTracker.assignment_id = :assignment_id";

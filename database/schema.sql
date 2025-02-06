@@ -37,6 +37,7 @@ CREATE TABLE People (
 CREATE TABLE AssignmentCategories (
     category_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     category_title VARCHAR(128),
+    duration INT UNSIGNED,
     PRIMARY KEY (category_id)
 )ENGINE = InnoDB ;
 
