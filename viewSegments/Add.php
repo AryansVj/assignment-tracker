@@ -139,7 +139,7 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                 </p>
                 <div class="button-container">
                     <input type="submit" value="Add Assignment">
-                    <a href="/index.php" class="btn-link">Home</a>
+                    <a href="/SelectWeek.php" class="btn-link">Back</a>
                 </div>
             </form>
         </div>
@@ -156,6 +156,7 @@ if ( isset($_POST['Name']) && isset($_POST['segment']) ) {
                 <p><?= date('F d', $date); ?></p>
                 <p><?= date('Y', $date); ?></p>
                 <a class="btn-link" href="/SelectWeek.php">Change</a>
+                <a class="btn-link" href="/viewWeek.php">View Schedule</a>
             </div>
             <div class="segment-section">
                 <h4>Sunday Meetings</h4>
