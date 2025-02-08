@@ -26,6 +26,8 @@ if ( isset($_POST['WeeklyDate']) ) {
             header("Location: /viewSegments/Add.php");
         } else if ( isset($_POST['assignments']) ) {
             header("Location: /viewAssignments/Add.php");
+        } else if ( isset($_POST['view']) ) {
+            header("Location: viewWeek.php");
         }
         return;
     } else {
@@ -76,9 +78,16 @@ session_destroy();
         <form method="post">
             <p><label for="week">Select the Sunday of the week to display</label></p>
             <input type="date" id="week" name="WeeklyDate" required><br>
-            <input type="submit" name="assignments" value="Assignments">
-            <input type="submit" name="segments" value="Segments">
+            <div class="submits">
+                <div>
+                    <input type="submit" name="assignments" value="Assignments">
+                    <input type="submit" name="segments" value="Segments">
+                </div>
+                <input class="view-week" type="submit" name="view" value="View">
+            </div>
         </form>
     </div>
 </body>
+
+
 </html>

@@ -10,7 +10,8 @@ body {
 /* Container for Form and Heading */
 .container {
     width: 400px;
-    padding: 20px;
+    padding: 25px;
+    padding-bottom: 35px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -46,6 +47,21 @@ input[type="date"]:focus {
     border-color: #007bff;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 86, 179, 0.3);
+}
+
+form .submits {
+    display: flex;
+    justify-content: space-between;
+}
+
+form div {
+    display: flex;
+    justify-content: space-between;
+}
+
+input[type="submit"].view-week {
+    margin-left: auto;
+    margin-right: 0;
 }
 
 /* Responsive Design */
