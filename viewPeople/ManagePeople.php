@@ -34,7 +34,7 @@ if ( isset($_POST['Add']) && isset($_POST['Name']) && ($_POST['role'] != 0) && (
 // Search section using GET
 if ( isset($_GET['search']) ) {
     if ( isset($_GET['search-name']) || ($_GET['search-role'] > 0) || ($_GET['search-group'] > 0) || ($_GET['search-responsibility'] > 0) ) {
-        $search = $people->searchPeople($_GET['search-name'], $_GET['search-role'] + 0, $_GET['search-group'] + 0, $_GET['search-responsibility'] + 0);
+        $search = $people->searchPeople($_GET['search-name'], $_GET['search-role'] + 0, $_GET['group'] + 0, $_GET['search-responsibility'] + 0);
         if ($search == -1) {
             $_SESSION['error'] = "Search failed!";
         } elseif (sizeof($search) == 0) {
