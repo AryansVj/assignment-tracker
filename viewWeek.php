@@ -221,7 +221,7 @@ if (isset($_SESSION['week'])) {
         <div class="column sunday">
             <div class="details">
                 <p class="heading"><?= date("l", $sunday_date) . " " . date("M d, Y", $sunday_date) ?></p>
-                <p class="chair">Chair: <span><?= $sunday_chair['person_name'] ?></span></p>
+                <p class="chair">Chair: <span><?= (isset($sunday_chair['person_name']))?$sunday_chair['person_name']:"Not assigned"; ?></span></p>
             </div>
             <div class="card-container">
                 <?php foreach ($segment_list_w as $segment): ?>
@@ -245,7 +245,7 @@ if (isset($_SESSION['week'])) {
         <div class="column mid-week">
             <div class="details">
                 <p class="heading"><?= date("l", $midweek_date) . " " . date("M d, Y", $midweek_date) ?></p>
-                <p class="chair">Main Chair: <span><?= $midweek_chair_main['person_name'] ?></span></p>
+                <p class="chair">Main Chair: <span><?= (isset($midweek_chair_main['person_name']))?$midweek_chair_main['person_name']:"Not assigned"; ?></span></p>
             </div>
             <div class="card-container">
                 <?php foreach ($segment_list_w as $segment): ?>
@@ -267,7 +267,7 @@ if (isset($_SESSION['week'])) {
         <div class="column assignments">
             <div class="details">
                 <p class="heading">Weekly Assignments</p>
-                <p class="chair">Secondary Chair: <span><?= $midweek_chair_sec['person_name'] ?></span></p>
+                <p class="chair">Secondary Chair: <span><?= (isset($midweek_chair_sec['person_name']))?$midweek_chair_sec['person_name']:"Not assigned"; ?></span></p>
             </div>
             <p class="sub-details">Main Hall</p>
             <hr>
