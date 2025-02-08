@@ -4,7 +4,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/model/database.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/model/Weeks.php";
 
 // To set the mid week meeting day (0-sunday)
-if (!isset($_SESSION['dayof_midweek'])) {
+if (isset($_POST['midweek-date'])) {
+    $_SESSION['dayof_midweek'] = $_POST['midweek-date'];
+} else {
     $_SESSION['dayof_midweek'] = 4;
 }
 
@@ -77,7 +79,18 @@ session_destroy();
         <h1>Welcome</h1>
         <form method="post">
             <p><label for="week">Select the Sunday of the week to display</label></p>
-            <input type="date" id="week" name="WeeklyDate" required><br>
+            <input type="date" id="week" name="WeeklyDate" required>
+            <p class="lable2"><label>Select the day of the mid-week meeting</label></p>
+            <div class="weekday-label">
+                <span>Mon</span><Span>Tue</Span><span>Wed</span><span>Thr</span><span>Fri</span>
+            </div>
+            <div class="radio-set">
+                <input type="radio" name="midweek-date" id="Mon" value=1>
+                <input type="radio" name="midweek-date" id="Tue" value=2>
+                <input type="radio" name="midweek-date" id="Wed" value=3>
+                <input type="radio" name="midweek-date" id="Thr" checked value=4>
+                <input type="radio" name="midweek-date" id="Fri" value=5>
+            </div>
             <div class="submits">
                 <div>
                     <input type="submit" name="assignments" value="Assignments">
@@ -88,6 +101,4 @@ session_destroy();
         </form>
     </div>
 </body>
-
-
 </html>
